@@ -3,9 +3,10 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const http = require("http");
-
+const mysql = require('mysql');
 // On importe les fichiers avec les routes
 const apiRouter = require("./routes/api.js");
+
 
 /* ========== PARTIE SERVEUR ========== */
 
@@ -34,6 +35,22 @@ server.on('error', function (error) {
     console.error(error);
 });
 
+/* ========== PARTIE MYSQL ========== */
+
+const con = mysql.createConnection({
+  host: "localhost",
+  user: "yourusername",
+  password: "yourpassword",
+  database: "mydb"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM customers", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
 /* ========== DECLARATION DES ROUTES ========== */
 
 // On déclare que la route de base '/api' sera utilisé comme base pour les routes du fichier routes/api.js

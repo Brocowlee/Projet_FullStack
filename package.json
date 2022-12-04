@@ -1,0 +1,27 @@
+{
+  "name": "projet_fullstack",
+  "version": "1.0.0",
+  "description": "Trello: https://trello.com/b/pbVG8OI4/projet-full-stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brocowlee/Projet_FullStack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brocowlee/Projet_FullStack/issues"
+  },
+  "homepage": "https://github.com/Brocowlee/Projet_FullStack#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20"
+  }
+}

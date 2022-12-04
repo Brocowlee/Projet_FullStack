@@ -1,10 +1,16 @@
+const db=require('../database');
+const userModel=require('../models/user_model')
+
 /**
  * Créer un utilisateur
  * @param user L'utilisateur à créer
  * @returns L'utilisateur crée
  */
  async function createUser(user) {
-
+    userModel.createUser(user,function(data){
+        //res.redirect('/');
+        console.log("user created successfully!");
+    });
 }
 
 /**

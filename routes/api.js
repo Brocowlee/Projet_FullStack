@@ -1,5 +1,5 @@
 const express = require("express");
-const {createUser, deleteUser, readAllUsers, readUser, updateUser} = require("../controllers/users.js");
+const {createUser, deleteUser, readAllUsers, readUser, updateUser} = require("../controllers/user_controller.js");
 
 // On crée le router de l'api
 const apiRouter = express.Router();
@@ -96,7 +96,8 @@ apiRouter.delete('/thread/:thread', async (req, res) => {
 /**
  * Créer un utilisateur
  */
- apiRouter.post('/user', async (req, res) => {
+ apiRouter.post('/user', async (req, res,next) => {
+    console.log(req.body)
     res.json(await createUser(req.body));
 });
 

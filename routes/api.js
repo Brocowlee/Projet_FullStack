@@ -1,10 +1,17 @@
 const express = require("express");
-const {createUser, deleteUser, readAllUsers, readUser, updateUser} = require("../controllers/user_controller.js");
+const user_controller = require("../controllers/user_controller.js");
+const thread_controller = require("../controllers/thread_controller.js");
 
 // On crée le router de l'api
 const apiRouter = express.Router();
 
 
+/**
+ * Création d'un thread
+ */
+ apiRouter.post('/thread', async (req, res) => {
+    res.json(await thread_controller.createThread(req.body));
+});
 
 /**
  * Récupère tous les postes du thread
@@ -45,7 +52,7 @@ apiRouter.delete('/thread/:thread/:post', async (req, res) => {
  * Supprime un upvote d'un post
  */
 apiRouter.delete('/thread/:thread', async (req, res) => {
-    res.json({});
+    res.json(await thread_controller.deleteThread(req.params.thread));
 });
 
 /**
@@ -96,38 +103,54 @@ apiRouter.delete('/thread/:thread', async (req, res) => {
 /**
  * Créer un utilisateur
  */
- apiRouter.post('/user', async (req, res,next) => {
+ apiRouter.post('/user', async (req, res) => {
     console.log(req.body)
-    res.json(await createUser(req.body));
+    res.json(await user_controller.createUser(req.body));
 });
 
 /**
  * Récupère un utilisateur par rapport à son id
  */
 apiRouter.get('/user/:userId', async (req, res) => {
-    res.json(await readUser(req.params.userId));
+    res.json(await user_controller.readUser(req.params.userId));
 });
 
-/**
- * Modifie un utilisateur par rapport à son id et le contenu de la requête
- */
-apiRouter.put('/user/:userId', async (req, res) => {
-    res.json(await updateUser(req.params.userId, req.body));
-});
 
 /**
  * Supprime un utilisateur par rapport à son id
  */
 apiRouter.delete('/user/:userId', async (req, res) => {
-    res.json(await deleteUser(req.params.userId));
+    console.log(req.params.userId);
+    res.json(await user_controller.deleteUser(req.params.userId));
 });
 
 /**
  * Récupère tous les utilisateurs
  */
 apiRouter.get('/users', async (req, res) => {
-    res.json(await readAllUsers());
+    res.json(await user_controller.readAllUsers());
 });
+
+apiRouter.put('/user/pseudo', async (req, res) => {
+    console.log("test");
+    res.json(await user_controller.updatePseudoUser(req.body.newPseudo,req.body.userId));
+});
+
+apiRouter.put('/user/mdp', async (req, res) => {
+    console.log("test");
+    res.json(await user_controller.updateMdpUser(req.body.newMdp,req.body.userId));
+});
+
+apiRouter.put('/user/age', async (req, res) => {
+    console.log("test");
+    res.json(await user_controller.updateAgeUser(req.body.newAge,req.body.userId));
+});
+
+apiRouter.put('/user/mana', async (req, res) => {
+    console.log("test");
+    res.json(await user_controller.updateManaUser(req.body.newMana,req.body.userId));
+});
+
 
 // On exporte seulement le router
 module.exports = apiRouter;

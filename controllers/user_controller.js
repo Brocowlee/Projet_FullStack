@@ -1,6 +1,7 @@
 const db=require('../database');
 const userModel=require('../models/user_model')
 
+
 /**
  * Créer un utilisateur
  * @param user L'utilisateur à créer

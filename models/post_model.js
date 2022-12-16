@@ -2,22 +2,22 @@ const e = require('express');
 const db = require('../database');
 
 
-async function createThread(thread,callback){
+async function createPost(post,thread,callback){
     const date=new Date().toISOString().slice(0, 10);
-    db.query("INSERT INTO `thread`(`titre`, `description`, `limite_age`,`date_thread`) VALUES ?",[[[thread.titre,thread.description,thread.limite_age,date]]],function (err, result) {
+    db.query("INSERT INTO `post`(`titre`, `contenu_post`, `date_post`,`id_thread`,`id_utilisateur`) VALUES ?",[[[post.titre,post.contenu_post,date,thread,post.id_utilisateur]]],function (err, result) {
         if (err) throw err;
         return callback(result);
       });
 }
 
-async function deleteThread(idThread,callback){
+async function deletePost(idThread,callback){
     db.query("DELETE FROM `thread` WHERE `id_thread` =?",[idThread], function (err, result) {
         if (err) throw err;
         return callback(result);
       });
   }
 
-async function readThread(idThread){
+async function readPost(idThread){
   const sql = "SELECT `titre`, `description`, `limite_age`, `date_thread` FROM `thread` WHERE `id_thread` = ?";
   try{
       return await new Promise((resolve, reject) => {
@@ -35,7 +35,7 @@ async function readThread(idThread){
   }
   }
 
-  async function readAllThread(){
+  async function readAllPost_Thread(){
     const sql = "SELECT * FROM `thread`";
     const res=[];
     try{
@@ -59,10 +59,10 @@ async function readThread(idThread){
 
 
 module.exports={
-    createThread: createThread,
-    readThread: readThread,
-    deleteThread: deleteThread,
-    readAllThread: readAllThread
+    createPost: createPost,
+    readPost: readPost,
+    deletePost: deletePost,
+    readAllPost_Thread: readAllPost_Thread
 }
 
 

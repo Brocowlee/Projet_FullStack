@@ -1,15 +1,15 @@
 const db=require('../database');
-const thread_model=require('../models/thread_model')
+const post_model=require('../models/post_model')
 
 /**
  * Créer un utilisateur
  * @param user L'utilisateur à créer
  * @returns L'utilisateur crée
  */
- async function createThread(thread) {
-    thread_model.createThread(thread,function(data){
+ async function createPost(post,thread) {
+    post_model.createPost(post,thread,function(data){
         //res.redirect('/');
-        console.log("thread created successfully!");
+        console.log("post created successfully!");
     });
 }
 
@@ -18,8 +18,8 @@ const thread_model=require('../models/thread_model')
  * @param threadId L'identifiant de l'utilisateur à lire
  * @returns L'utilisateur trouvé
  */
-async function readThread(threadId) {
-    return await thread_model.readThread(threadId)
+async function readPost(PostId) {
+    return await post_model.readPost(PostId)
 }
 
 
@@ -28,10 +28,10 @@ async function readThread(threadId) {
  * @param threadId L'identifiant de l'utilisateur à supprimer
  * @returns L'utilisateur qui vient d'être supprimé
  */
-async function deleteThread(threadId) {
-    thread_model.deleteThread(threadId,function(data){
+async function deletePost(PostId) {
+    post_model.deletePost(PostId,function(data){
         //res.redirect('/');
-        console.log("thread deleted successfully!");
+        console.log("post deleted successfully!");
     });
 }
 
@@ -39,14 +39,14 @@ async function deleteThread(threadId) {
 /**
  * Récupère TOUS les utilisateurs depuis la base de données
  */
-async function readAllThread() {
-    return await thread_model.readAllThread()
+async function readAllPost() {
+    return await post_model.readAllPost()
 }
 
 // On exporte les modules
 module.exports = {
-    createThread: createThread,
-    readThread: readThread,
-    deleteThread: deleteThread,
-    readAllThread: readAllThread
+    createPost: createPost,
+    readPost: readPost,
+    deletePost: deletePost,
+    readAllPost: readAllPost
 }

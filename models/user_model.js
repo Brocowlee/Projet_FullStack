@@ -5,7 +5,6 @@ async function createUser(user,callback){
     const date=new Date().toISOString().slice(0, 10);
     const sql="INSERT INTO utilisateur(pseudo, mdp, age, date_creation_compte) VALUES ?";
     const values=[[user.pseudo,user.mdp,user.age,date]];
-    console.log(values);
     db.query(sql,[values], function (err, result) {
       if (err) throw err;
       return callback(result);

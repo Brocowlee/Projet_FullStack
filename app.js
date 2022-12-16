@@ -4,9 +4,11 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const http = require("http");
 const db = require('./database');
-// On importe les fichiers avec les routes
-const apiRouter = require("./routes/api.js");
 
+// On importe les fichiers avec les routes
+const userRouter = require("./routes/user_route.js");
+const threadRouter = require("./routes/thread_route.js");
+const postRouter = require("./routes/post_route.js");
 
 /* ========== PARTIE SERVEUR ========== */
 
@@ -39,4 +41,6 @@ server.on('error', function (error) {
 /* ========== DECLARATION DES ROUTES ========== */
 
 // On déclare que la route de base '/api' sera utilisé comme base pour les routes du fichier routes/api.js
-app.use('/api', apiRouter);
+app.use('/api/user',userRouter)
+app.use('/api/thread',threadRouter)
+app.use('/api/thread/:thread/:post',postRouter)

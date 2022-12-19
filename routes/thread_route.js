@@ -24,15 +24,17 @@ threadRouter.get('/:thread', async (req, res) => {
         res.json(await thread_controller.readAllThread());
         return;
     }
-    res.json(await thread_controller.readThread(req.params.thread));
+    const [threadResult, postResult] = await Promise.all([
+        thread_controller.readThread(req.params.thread),
+        post_controller.readAllPost_Thread(req.params.thread)
+      ]);
+      
+      res.json({
+        thread: threadResult,
+        posts: postResult
+      });
+      
 });
-
-/**
- * Récupère tous les thread
- */
-// threadRouter.get('/all', async (req, res) => {
-//     res.json(await thread_controller.readAllThread());
-// });
 
 /**
  * Supprime un thread
@@ -46,13 +48,6 @@ threadRouter.delete('/:thread', async (req, res) => {
  */
 threadRouter.post('/:thread', async (req, res) => {
     res.json(await post_controller.createPost(req.body,req.params.thread));
-});
-
-/**
- * Supression d'un post
- */
-threadRouter.delete('/:thread', async (req, res) => {
-    res.json({});
 });
 
 

@@ -43,4 +43,4 @@ server.on('error', function (error) {
 // On déclare que la route de base '/api' sera utilisé comme base pour les routes du fichier routes/api.js
 app.use('/api/user',userRouter)
 app.use('/api/thread',threadRouter)
-app.use('/api/thread/:thread/:post',postRouter)
+app.use('/api/thread/:thread',postRouter)

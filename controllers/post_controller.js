@@ -2,21 +2,17 @@ const db=require('../database');
 const post_model=require('../models/post_model')
 
 /**
- * Créer un utilisateur
- * @param user L'utilisateur à créer
- * @returns L'utilisateur crée
+ * Créer un post
  */
- async function createPost(post,thread) {
-    post_model.createPost(post,thread,function(data){
+ async function createPost(post,idThread) {
+    post_model.createPost(post,idThread,function(data){
         //res.redirect('/');
         console.log("post created successfully!");
     });
 }
 
 /**
- * Lire un utilisateur par son id unique créé par MongoDB
- * @param threadId L'identifiant de l'utilisateur à lire
- * @returns L'utilisateur trouvé
+ * Lire un post par son id
  */
 async function readPost(PostId) {
     return await post_model.readPost(PostId)
@@ -24,9 +20,7 @@ async function readPost(PostId) {
 
 
 /**
- * Supprime un utilisateur
- * @param threadId L'identifiant de l'utilisateur à supprimer
- * @returns L'utilisateur qui vient d'être supprimé
+ * Supprime un post par son id
  */
 async function deletePost(PostId) {
     post_model.deletePost(PostId,function(data){
@@ -37,10 +31,10 @@ async function deletePost(PostId) {
 
 
 /**
- * Récupère TOUS les utilisateurs depuis la base de données
+ * Récupère TOUS posts d'un thread
  */
-async function readAllPost() {
-    return await post_model.readAllPost()
+async function readAllPost_Thread(idThread) {
+    return await post_model.readAllPost_Thread(idThread)
 }
 
 // On exporte les modules
@@ -48,5 +42,5 @@ module.exports = {
     createPost: createPost,
     readPost: readPost,
     deletePost: deletePost,
-    readAllPost: readAllPost
+    readAllPost_Thread: readAllPost_Thread
 }

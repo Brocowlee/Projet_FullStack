@@ -9,21 +9,25 @@ const threadRouter = express.Router();
  * Création d'un thread
  */
 threadRouter.post('/', async (req, res) => {
-     if(req.params.thread === 'all'){
+    /*if(req.params.thread === 'all'){
         res.status(400).send({error : "Invalid title value"});
         return;
-    }
+    }*/
     res.json(await thread_controller.createThread(req.body));
 });
 
 /**
- * Récupère un thread
+ * Récupère tous les thread
+ */
+threadRouter.get('/', async (req, res) => {
+    res.json(await thread_controller.readAllThread());
+});
+
+
+/**
+ * Récupère un thread et ses posts
  */
 threadRouter.get('/:thread', async (req, res) => {
-    if(req.params.thread === 'all'){
-        res.json(await thread_controller.readAllThread());
-        return;
-    }
     const [threadResult, postResult] = await Promise.all([
         thread_controller.readThread(req.params.thread),
         post_controller.readAllPost_Thread(req.params.thread)

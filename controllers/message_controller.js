@@ -14,7 +14,7 @@ const message_model=require('../models/message_model')
  * Lit un message par son id
  */
 async function readMessage(messageId) {
-    return await message_model.readPost(messageId);
+    return await message_model.readMessage(messageId);
 }
 
 

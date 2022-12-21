@@ -10,25 +10,48 @@ async function createMessage(message,idPost,callback){
       });
 }
 
-
-/**
- 
-TO DO
-  |
-  |
- \ /
-
- */
 async function deleteMessage(idMessage,callback){
-    //TO DO
+  db.query("DELETE FROM `message` WHERE `id_message` =?",[idMessage], function (err, result) {
+    if (err) throw err;
+    return callback(result);
+  });
   }
 
 async function readMessage(idMessage){
-    //TO DO
+  const sql = "SELECT `contenu_message`, `date_message`, `id_utilisateur`,`id_post`,`id_message_lien` FROM `message` WHERE `id_message` = ?";
+  try{
+      return await new Promise((resolve, reject) => {
+        db.query(sql,[idMessage], function (err, result) {
+          if (err) {
+            return reject(err)
+          };
+          return resolve(result);
+        });
+      })
+  }
+  catch(e){
+    console.log(e.message);
+    return "erreur";
+  }
   }
 
   async function readAllMessage_Post(idPost){
-    //TO DO
+    const sql = "SELECT * FROM `message` WHERE `id_post`= ?";
+    const res=[];
+    try{
+      return await new Promise((resolve, reject) => {
+        db.query(sql,[idPost], function (err, result) {
+          if (err) {
+            return reject(err)
+          };
+          return resolve(result);
+        });
+      })
+  }
+  catch(e){
+    console.log(e.message);
+    return "erreur";
+  }
   }
 
 

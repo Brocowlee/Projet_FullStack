@@ -9,6 +9,7 @@ const db = require('./database');
 const userRouter = require("./routes/user_route.js");
 const threadRouter = require("./routes/thread_route.js");
 const postRouter = require("./routes/post_route.js");
+const messageRouter = require("./routes/message_route.js");
 
 /* ========== PARTIE SERVEUR ========== */
 
@@ -44,3 +45,4 @@ server.on('error', function (error) {
 app.use('/api/user',userRouter)
 app.use('/api/thread',threadRouter)
 app.use('/api/thread/:thread',postRouter)
+app.use('/api/thread/:thread/:post',messageRouter)

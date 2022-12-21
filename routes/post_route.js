@@ -1,5 +1,4 @@
 const express = require("express");
-const thread_controller = require("../controllers/thread_controller.js");
 const post_controller = require("../controllers/post_controller.js");
 const message_controller = require("../controllers/message_controller.js");
 
@@ -7,10 +6,18 @@ const message_controller = require("../controllers/message_controller.js");
 const postRouter = express.Router();
 
 /**
- * Récupère un post
+ * Récupère un post et ses messages
  */
 postRouter.get('/:post', async (req, res) => {
-    res.json(await post_controller.readPost(req.params.post));
+    const [postResult, messageResult] = await Promise.all([
+        post_controller.readPost(req.params.post),
+        message_controller.readAllMessage_Post(req.params.post)
+      ]);
+      
+      res.json({
+        post: postResult,
+        messages: messageResult
+      });
 });
 
 /**

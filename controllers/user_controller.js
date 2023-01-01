@@ -1,6 +1,7 @@
 const db=require('../database');
 const userModel=require('../models/user_model')
 
+
 /**
  * Créer un utilisateur
  * @param user L'utilisateur à créer
@@ -19,7 +20,7 @@ const userModel=require('../models/user_model')
  * @returns L'utilisateur trouvé
  */
 async function readUser(userId) {
-
+    return await userModel.getUser(userId)
 }
 
 /**
@@ -38,7 +39,38 @@ async function updateUser(userId, userToUpdate) {
  * @returns L'utilisateur qui vient d'être supprimé
  */
 async function deleteUser(userId) {
+    userModel.deleteUser(userId,function(data){
+        //res.redirect('/');
+        console.log("user deleted successfully!");
+    });
+}
 
+async function updatePseudoUser(pseudo,userId) {
+    userModel.updatePseudoUser(pseudo,userId,function(data){
+        //res.redirect('/');
+        console.log("user updated successfully!");
+    });
+}
+
+async function updateMdpUser(mdp,userId) {
+    userModel.updateMdpUser(mdp,userId,function(data){
+        //res.redirect('/');
+        console.log("user updated successfully!");
+    });
+}
+
+async function updateAgeUser(age,userId) {
+    userModel.updateAgeUser(age,userId,function(data){
+        //res.redirect('/');
+        console.log("user updated successfully!");
+    });
+}
+
+async function updateManaUser(mana,userId) {
+    userModel.updateManaUser(mana,userId,function(data){
+        //res.redirect('/');
+        console.log("user updated successfully!");
+    });
 }
 
 /**
@@ -52,7 +84,10 @@ async function readAllUsers() {
 module.exports = {
     createUser: createUser,
     readUser: readUser,
-    updateUser: updateUser,
+    updatePseudoUser: updatePseudoUser,
+    updateMdpUser: updateMdpUser,
+    updateAgeUser: updateAgeUser,
+    updateManaUser: updateManaUser,
     deleteUser: deleteUser,
     readAllUsers: readAllUsers
 }

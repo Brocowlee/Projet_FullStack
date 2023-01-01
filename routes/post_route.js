@@ -1,6 +1,7 @@
 const express = require("express");
 const post_controller = require("../controllers/post_controller.js");
 const message_controller = require("../controllers/message_controller.js");
+const {isUserAuthenticated, checkUserNotAlreadyAuthenticated, isSuperUser, isUserAsking} = require("../middlewares");
 
 // On crée le router de l'api
 const postRouter = express.Router();
@@ -23,14 +24,14 @@ postRouter.get('/:post', async (req, res) => {
 /**
  * Supprime un post
  */
-postRouter.delete('/:post', async (req, res) => {
+postRouter.delete('/:post', isUserAuthenticated, async (req, res) => {
     res.json(await post_controller.deletePost(req.params.post));
 });
 
 /**
  * Creation d'un message
  */
-postRouter.post('/:post', async (req, res) => {
+postRouter.post('/:post', isUserAuthenticated, async (req, res) => {
     res.json(await message_controller.createMessage(req.body,req.params.post));
 });
 

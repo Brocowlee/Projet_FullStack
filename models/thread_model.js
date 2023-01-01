@@ -57,12 +57,32 @@ async function readAllThread(){
   }
 }
 
+async function isSuperUserThread(idUser,idThread){
+  const sql = "SELECT admin FROM `utilisateur_thread` WHERE `id_utilisateur`=" + idUser  + " AND id_thread =" + idThread;
+  try{
+    return await new Promise((resolve, reject) => {
+      db.query(sql, function (err, result) {
+        if (err) {
+          return reject(err)
+        };
+        return resolve(result);
+      });
+    })
+  }
+  catch(e){
+    console.log(e.message);
+    return "erreur";
+  }
+}
+
+
 
 module.exports={
   createThread: createThread,
   readThread: readThread,
   deleteThread: deleteThread,
-  readAllThread: readAllThread
+  readAllThread: readAllThread,
+  isSuperUserThread :isSuperUserThread,
 }
 
 

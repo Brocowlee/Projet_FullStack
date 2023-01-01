@@ -65,13 +65,14 @@ async function getUser(idUser){
 }
 
 async function getUserFromPseudo_Mdp(pseudo,mdp){
-  const sql = 'SELECT `id_utilisateur`,`pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `pseudo` = ?';
+  const sql = 'SELECT `id_utilisateur`,`pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `pseudo` = ? AND `mdp` = ?';
   try{
     return await new Promise((resolve, reject) => {
       db.query(sql,[pseudo,mdp], function (err, result) {
         if (err) {
           return reject(err)
         };
+        
         return resolve(result);
       });
     })
@@ -103,6 +104,11 @@ async function getUserFromPseudo(pseudo){
 
 
 async function updatePseudoUser(pseudo,idUser,callback){
+  // On regarde déjà si un compte n'existe pas à ce pseudo (pour ne pas en recréer un)
+  const alreadyExistingAccount = await getUserFromPseudo(pseudo);
+  if (alreadyExistingAccount != "") {
+      throw new Error("Un compte existe déjà avec ce pseudo");
+  }
   db.query("UPDATE `utilisateur` SET `pseudo`= ? WHERE `id_utilisateur`= ?",[pseudo,idUser], function (err, result) {
     if (err) throw err;
     return callback(result);

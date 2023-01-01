@@ -43,10 +43,18 @@ async function readAllThread() {
     return await thread_model.readAllThread()
 }
 
+/**
+ * Récupère la valeur la valeur admin d'un utilisateur sur un thread
+ */
+async function isSuperUserThread(idUser,idThread) {
+    return await thread_model.isSuperUserThread(idUser,idThread)
+}
+
 // On exporte les modules
 module.exports = {
     createThread: createThread,
     readThread: readThread,
     deleteThread: deleteThread,
-    readAllThread: readAllThread
+    readAllThread: readAllThread,
+    isSuperUserThread : isSuperUserThread,
 }

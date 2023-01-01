@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const db=require('../database');
 const userModel=require('../models/user_model')
 
@@ -5,7 +6,6 @@ const userModel=require('../models/user_model')
 /**
  * Créer un utilisateur
  * @param user L'utilisateur à créer
- * @returns L'utilisateur crée
  */
  async function createUser(user) {
     userModel.createUser(user,function(data){
@@ -15,7 +15,7 @@ const userModel=require('../models/user_model')
 }
 
 /**
- * Lire un utilisateur par son id unique créé par MongoDB
+ * Lire un utilisateur par son id unique
  * @param userId L'identifiant de l'utilisateur à lire
  * @returns L'utilisateur trouvé
  */
@@ -24,13 +24,17 @@ async function readUser(userId) {
 }
 
 /**
- * Mettre à jour un utilisateur
- * @param userId L'id de l'utilisateur à mettre à jour
- * @param userToUpdate Les éléments de l'utilisateur à mettre à jour
- * @returns L'utilisateur modifié
+ * Lire un utilisateur par son id unique
+ * @param pseudo pseudo de l'utilisateur à lire
+ * @param mdp mdp de l'utilisateur à lire
+ * @returns L'utilisateur trouvé
  */
-async function updateUser(userId, userToUpdate) {
+async function getUserFromPseudo_Mdp(pseudo,mdp){
+    return await userModel.getUserFromPseudo_Mdp(pseudo,mdp)
+}
 
+async function readUserFromPseudo(pseudo){
+    return await userModel.getUserFromPseudo(pseudo)
 }
 
 /**
@@ -74,6 +78,33 @@ async function updateManaUser(mana,userId) {
 }
 
 /**
+ * On essaye de connecter l'utilisateur
+ * @param headerAuthorization Le header authorization
+ */
+const logInUser = async (headerAuthorization) => {
+
+    // On récupère le mot de passe et l'email du header authorization
+    let [pseudo, password] = Buffer.from(headerAuthorization, 'base64').toString().split(':');
+
+    // On hash le mot de passe avec l'algorithme SHA256 et on veut le résultat en hexadecimal
+    let passwordToCheck = crypto.createHash('sha256').update(password).digest("hex");
+
+    // On cherche le compte qui a cet email avec le mot de passe.
+    let accountFound = await getUserFromPseudo_Mdp(pseudo.toLowerCase(),passwordToCheck);
+    // Si le compte existe alors on renvoie ses données
+    if (accountFound !== null) {
+        return {
+            userId: accountFound[0].id_utilisateur,
+            pseudo: accountFound[0].pseudo,
+            isSuperUser: accountFound[0].admin
+        };
+    }
+
+    // Sinon on veut renvoyer une erreur
+    throw new Error("Aucun compte n'a été trouvé avec ces identifiants");
+}
+
+/**
  * Récupère TOUS les utilisateurs depuis la base de données
  */
 async function readAllUsers() {
@@ -84,10 +115,13 @@ async function readAllUsers() {
 module.exports = {
     createUser: createUser,
     readUser: readUser,
+    getUserFromPseudo_Mdp, getUserFromPseudo_Mdp,
+    readUserFromPseudo, readUserFromPseudo,
     updatePseudoUser: updatePseudoUser,
     updateMdpUser: updateMdpUser,
     updateAgeUser: updateAgeUser,
     updateManaUser: updateManaUser,
     deleteUser: deleteUser,
-    readAllUsers: readAllUsers
+    readAllUsers: readAllUsers,
+    logInUser : logInUser
 }

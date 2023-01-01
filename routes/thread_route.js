@@ -1,6 +1,8 @@
 const express = require("express");
 const thread_controller = require("../controllers/thread_controller.js");
 const post_controller = require("../controllers/post_controller.js");
+const {isUserAuthenticated, checkUserNotAlreadyAuthenticated, isSuperUser, isUserAsking} = require("../middlewares");
+const user_controller = require("../controllers/user_controller.js");
 
 // On crée le router de l'api
 const threadRouter = express.Router();
@@ -8,7 +10,7 @@ const threadRouter = express.Router();
 /**
  * Création d'un thread
  */
-threadRouter.post('/', async (req, res) => {
+threadRouter.post('/',isUserAuthenticated, async (req, res) => {
     /*if(req.params.thread === 'all'){
         res.status(400).send({error : "Invalid title value"});
         return;
@@ -27,15 +29,19 @@ threadRouter.get('/', async (req, res) => {
 /**
  * Récupère un thread et ses posts
  */
-threadRouter.get('/:thread', async (req, res) => {
-    const [threadResult, postResult] = await Promise.all([
+threadRouter.get('/:thread',isUserAuthenticated, async (req, res) => {
+    const userId = req.session.userId
+
+    const [threadResult, postResult,adminResult] = await Promise.all([
         thread_controller.readThread(req.params.thread),
-        post_controller.readAllPost_Thread(req.params.thread)
+        post_controller.readAllPost_Thread(req.params.thread),
+        thread_controller.isSuperUserThread(userId,req.params.thread)
       ]);
       
       res.json({
         thread: threadResult,
-        posts: postResult
+        posts: postResult,
+        admin : adminResult
       });
       
 });
@@ -43,14 +49,14 @@ threadRouter.get('/:thread', async (req, res) => {
 /**
  * Supprime un thread
  */
-threadRouter.delete('/:thread', async (req, res) => {
+threadRouter.delete('/:thread',isUserAuthenticated, async (req, res) => {
     res.json(await thread_controller.deleteThread(req.params.thread));
 });
 
 /**
  * Creation d'un post
  */
-threadRouter.post('/:thread', async (req, res) => {
+threadRouter.post('/:thread',isUserAuthenticated, async (req, res) => {
     res.json(await post_controller.createPost(req.body,req.params.thread));
 });
 

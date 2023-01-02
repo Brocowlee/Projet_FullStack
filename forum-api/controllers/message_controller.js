@@ -4,8 +4,8 @@ const message_model=require('../models/message_model')
 /**
  * Crée un message
  */
- async function createMessage(message,idPost) {
-    message_model.createMessage(message,idPost,function(data){
+ async function createMessage(message,idPost,userId) {
+    message_model.createMessage(message,idPost,userId,function(data){
         console.log("message created successfully!");
     });
 }

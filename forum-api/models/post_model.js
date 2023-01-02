@@ -1,9 +1,15 @@
 const express = require('express');
 const db = require('../database');
+const userModel=require('./user_model');
 
 
-async function createPost(post,thread,callback){
+async function createPost(post,thread,userId,callback){
     const date=new Date().toISOString().slice(0, 10);
+
+    const user = await userModel.getUser(userId)
+    let mana = user[0].mana + 5
+    const updatemana = await userModel.updateManaUser(mana,userId)
+
     db.query("INSERT INTO `post`(`titre`, `contenu_post`, `date_post`,`id_thread`,`id_utilisateur`) VALUES ?",[[[post.titre,post.contenu_post,date,thread,post.id_utilisateur]]],function (err, result) {
       if (err) throw err;
       return callback(result);

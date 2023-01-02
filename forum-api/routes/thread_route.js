@@ -53,7 +53,7 @@ threadRouter.delete('/:thread',isUserAuthenticated, async (req, res) => {
  * Creation d'un post
  */
 threadRouter.post('/:thread',isUserAuthenticated, async (req, res) => {
-    res.json(await post_controller.createPost(req.body,req.params.thread));
+    res.json(await post_controller.createPost(req.body,req.params.thread,req.session.userId));
 });
 
 

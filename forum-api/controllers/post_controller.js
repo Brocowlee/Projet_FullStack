@@ -4,9 +4,8 @@ const post_model=require('../models/post_model')
 /**
  * Créer un post
  */
- async function createPost(post,idThread) {
-    post_model.createPost(post,idThread,function(data){
-        //res.redirect('/');
+ async function createPost(post,idThread,userId) {
+    post_model.createPost(post,idThread,userId,function(data){
         console.log("post created successfully!");
     });
 }
@@ -24,7 +23,6 @@ async function readPost(PostId) {
  */
 async function deletePost(PostId) {
     post_model.deletePost(PostId,function(data){
-        //res.redirect('/');
         console.log("post deleted successfully!");
     });
 }

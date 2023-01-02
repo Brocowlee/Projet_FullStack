@@ -1,5 +1,6 @@
 const e = require('express');
 const db = require('../database');
+const userModel=require('./user_model');
 
 
 async function createThread(thread,userId,callback){
@@ -11,8 +12,12 @@ async function createThread(thread,userId,callback){
   db.query("INSERT INTO `thread`(`titre`, `description`, `limite_age`,`date_thread`) VALUES ?",[[[thread.titre,thread.description,thread.limite_age,date]]],function (err, result) {
       if (err) throw err;
   });
+
+  const user = await userModel.getUser(userId)
+  let mana = user[0].mana + 10
+  const updatemana = await userModel.updateManaUser(mana,userId)
+
   const rthread = await readThreadFromTitre(thread.titre).then();
-  console.log(rthread[0].id_thread)
   db.query("INSERT INTO `utilisateur_thread`(`id_utilisateur`, `id_thread`, `suivre`,`admin`) VALUES ?",[[[userId,rthread[0].id_thread,1,1]]],function (err, result) {
     if (err) throw err;
     return callback(result);

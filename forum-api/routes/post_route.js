@@ -32,7 +32,7 @@ postRouter.delete('/:post', isUserAuthenticated, async (req, res) => {
  * Creation d'un message
  */
 postRouter.post('/:post', isUserAuthenticated, async (req, res) => {
-    res.json(await message_controller.createMessage(req.body,req.params.post));
+    res.json(await message_controller.createMessage(req.body,req.params.post,req.session.userId));
 });
 
 module.exports = postRouter;

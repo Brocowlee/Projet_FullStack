@@ -1,5 +1,4 @@
 const crypto = require("crypto");
-const morgan = require("morgan");
 const db=require('../database');
 const userModel=require('../models/user_model')
 
@@ -50,35 +49,30 @@ async function readUserFromPseudo(pseudo){
  */
 async function deleteUser(userId) {
     userModel.deleteUser(userId,function(data){
-        //res.redirect('/');
         console.log("user deleted successfully!");
     });
 }
 
 async function updatePseudoUser(pseudo,userId) {
     userModel.updatePseudoUser(pseudo,userId,function(data){
-        //res.redirect('/');
         console.log("user updated successfully!");
     });
 }
 
 async function updateMdpUser(mdp,userId) {
     userModel.updateMdpUser(mdp,userId,function(data){
-        //res.redirect('/');
         console.log("user updated successfully!");
     });
 }
 
 async function updateAgeUser(age,userId) {
     userModel.updateAgeUser(age,userId,function(data){
-        //res.redirect('/');
         console.log("user updated successfully!");
     });
 }
 
 async function updateManaUser(mana,userId) {
     userModel.updateManaUser(mana,userId,function(data){
-        //res.redirect('/');
         console.log("user updated successfully!");
     });
 }

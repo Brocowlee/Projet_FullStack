@@ -101,8 +101,6 @@ async function getUserFromPseudo(pseudo){
   }
 }
 
-
-
 async function updatePseudoUser(pseudo,idUser,callback){
   // On regarde déjà si un compte n'existe pas à ce pseudo (pour ne pas en recréer un)
   const alreadyExistingAccount = await getUserFromPseudo(pseudo);
@@ -111,28 +109,24 @@ async function updatePseudoUser(pseudo,idUser,callback){
   }
   db.query("UPDATE `utilisateur` SET `pseudo`= ? WHERE `id_utilisateur`= ?",[pseudo,idUser], function (err, result) {
     if (err) throw err;
-    return callback(result);
   });
 }
 
 async function updateMdpUser(mdp,idUser,callback){
   db.query("UPDATE `utilisateur` SET `mdp`= ? WHERE `id_utilisateur`= ?",[mdp,idUser], function (err, result) {
     if (err) throw err;
-    return callback(result);
   });
 }
 
 async function updateAgeUser(age,idUser,callback){
   db.query("UPDATE `utilisateur` SET  `age`= ? WHERE `id_utilisateur`= ?",[age,idUser], function (err, result) {
     if (err) throw err;
-    return callback(result);
   });
 }
 
-async function updateManaUser(mana,idUser,callback){
+async function updateManaUser(mana,idUser){
   db.query("UPDATE `utilisateur` SET  `mana`= ? WHERE `id_utilisateur`= ?",[mana,idUser], function (err, result) {
     if (err) throw err;
-    return callback(result);
   });
 }
 

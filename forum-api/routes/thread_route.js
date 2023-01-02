@@ -11,11 +11,7 @@ const threadRouter = express.Router();
  * Création d'un thread
  */
 threadRouter.post('/',isUserAuthenticated, async (req, res) => {
-    /*if(req.params.thread === 'all'){
-        res.status(400).send({error : "Invalid title value"});
-        return;
-    }*/
-    res.json(await thread_controller.createThread(req.body));
+    res.json(await thread_controller.createThread(req.body,req.session.userId));
 });
 
 /**

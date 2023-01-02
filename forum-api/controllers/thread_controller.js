@@ -6,9 +6,8 @@ const thread_model=require('../models/thread_model')
  * @param user L'utilisateur à créer
  * @returns L'utilisateur crée
  */
- async function createThread(thread) {
-    thread_model.createThread(thread,function(data){
-        //res.redirect('/');
+ async function createThread(thread,userId) {
+    thread_model.createThread(thread,userId,function(data){
         console.log("thread created successfully!");
     });
 }
@@ -30,7 +29,6 @@ async function readThread(threadId) {
  */
 async function deleteThread(threadId) {
     thread_model.deleteThread(threadId,function(data){
-        //res.redirect('/');
         console.log("thread deleted successfully!");
     });
 }

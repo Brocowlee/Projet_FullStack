@@ -1,4 +1,5 @@
 const crypto = require("crypto");
+const morgan = require("morgan");
 const db=require('../database');
 const userModel=require('../models/user_model')
 
@@ -8,10 +9,15 @@ const userModel=require('../models/user_model')
  * @param user L'utilisateur à créer
  */
  async function createUser(user) {
-    userModel.createUser(user,function(data){
-        //res.redirect('/');
-        console.log("user created successfully!");
-    });
+
+    try {
+        userModel.createUser(user,function(data){
+            console.log("user created successfully!");
+        });
+    } catch (e) {
+        res.status(401).send(e.message);
+    }
+
 }
 
 /**
@@ -85,14 +91,14 @@ const logInUser = async (headerAuthorization) => {
 
     // On récupère le mot de passe et l'email du header authorization
     let [pseudo, password] = Buffer.from(headerAuthorization, 'base64').toString().split(':');
-
     // On hash le mot de passe avec l'algorithme SHA256 et on veut le résultat en hexadecimal
     let passwordToCheck = crypto.createHash('sha256').update(password).digest("hex");
 
     // On cherche le compte qui a cet email avec le mot de passe.
     let accountFound = await getUserFromPseudo_Mdp(pseudo.toLowerCase(),passwordToCheck);
     // Si le compte existe alors on renvoie ses données
-    if (accountFound !== null) {
+    if (accountFound != "") {
+
         return {
             userId: accountFound[0].id_utilisateur,
             pseudo: accountFound[0].pseudo,

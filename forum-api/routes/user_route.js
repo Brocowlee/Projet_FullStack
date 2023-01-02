@@ -32,7 +32,6 @@ userRouter.get('/:userId',isUserAuthenticated, async (req, res) => {
  * @middleware isSuperUser: Seul un super utilisateur a le droit d'accéder à cet endpoint
  */
 userRouter.delete('/:userId', isUserAuthenticated, isSuperUser, async (req, res) => {
-    console.log(req.params.userId);
     res.json(await user_controller.deleteUser(req.params.userId));
 });
 
@@ -50,7 +49,6 @@ userRouter.get('/users', isUserAuthenticated, async (req, res) => {
  * @middleware isUserAsking: Seul un super utilisateur a le droit d'accéder à cet endpoint
  */
 userRouter.put('/pseudo', isUserAuthenticated, isUserAsking, async (req, res) => {
-    console.log("test");
     res.json(await user_controller.updatePseudoUser(req.body.newPseudo,req.body.userId));
 });
 
@@ -60,7 +58,6 @@ userRouter.put('/pseudo', isUserAuthenticated, isUserAsking, async (req, res) =>
  * @middleware isUserAsking: Seul un super utilisateur a le droit d'accéder à cet endpoint
  */
 userRouter.put('/mdp', isUserAuthenticated, isUserAsking, async (req, res) => {
-    console.log("test");
     res.json(await user_controller.updateMdpUser(req.body.newMdp,req.body.userId));
 });
 
@@ -70,7 +67,6 @@ userRouter.put('/mdp', isUserAuthenticated, isUserAsking, async (req, res) => {
  * @middleware isUserAsking: Seul un super utilisateur a le droit d'accéder à cet endpoint
  */
 userRouter.put('/age', isUserAuthenticated, isUserAsking, async (req, res) => {
-    console.log("test");
     res.json(await user_controller.updateAgeUser(req.body.newAge,req.body.userId));
 });
 
@@ -79,7 +75,6 @@ userRouter.put('/age', isUserAuthenticated, isUserAsking, async (req, res) => {
  * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
  */
 userRouter.put('/mana', isUserAuthenticated, async (req, res) => {
-    console.log("test");
     res.json(await user_controller.updateManaUser(req.body.newMana,req.body.userId));
 });
 

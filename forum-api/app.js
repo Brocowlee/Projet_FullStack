@@ -8,7 +8,6 @@ const cors = require("cors");
 const session = require("express-session");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
-const {Server} = require("socket.io");
 
 // On importe les fichiers avec les routes
 const userRouter = require("./routes/user_route.js");
@@ -16,8 +15,6 @@ const threadRouter = require("./routes/thread_route.js");
 const postRouter = require("./routes/post_route.js");
 const messageRouter = require("./routes/message_route.js");
 const apiRouter = require("./routes/api.js");
-const crypto = require("crypto");
-const {isUserAuthenticated, isSuperUser} = require("./middlewares");
 
 /* ========== PARTIE SERVEUR ========== */
 
@@ -122,81 +119,7 @@ app.use(session({
     },
 }));
 
-
-/* ========== PARTIE SOCKET IO ========== */
-
-// Crée le socket io qui sera utilisé pour la websocket
-const io = new Server(server, {
-
-    // Comme nous faisons du développement nous allons avoir des problèmes liés au CORS (https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
-    // Vu que l'on ne veut pas de soucis pour le développement, on va bypass cette mesure de sécurité !
-    cors: {
-
-        // En gros l'origin sera toujours celle qui faut pour ne plus avoir de soucis avec CORS
-        origin: (requestOrigin, callback) => {
-            callback(undefined, requestOrigin);
-        },
-        methods: ["GET", "POST"],
-    },
-});
-
-// L'événement "connection" est réservé à quand un utilisateur se connecte à la websocket
-io.on('connection', (socket) => {
-
-    // On va donc logguer l'id qui s'est connecté !
-    console.log(socket.id);
-
-    // Il y a plusieurs façons de faire transiter de la donnée avec SocketIO...
-
-    // Soit à une seule socket
-    socket.emit("mon_evenement_que_pour_moi", "Salut !");
-
-    // On va envoyer à cette socket que la connection a bien été établie pour la montrer sur le client
-    socket.emit("est_connecte", `Vous êtes connecté à la Websocket qui a l'id: ${socket.id}`);
-
-    // Soit à toutes les sockets
-    io.emit("une_nouvelle_socket_s_est_connecte", `La socket '${socket.id}' vient de se connecter, bienvenue !`);
-
-    // Il existe aussi d'autres principes comme les rooms (https://socket.io/docs/v3/rooms/) ou les namespaces (https://socket.io/docs/v3/namespaces/). Je vous conseille d'y jeter un coup d'œil !
-    // ...
-
-    // Ici on peut faire en sorte d'ajouter des événements à "écouter", si un événement est reçu alors la fonction est effectuée
-    socket.on("mon_evenement", function (data) {
-
-        // On renvoie à la socket d'où provient l'événement la donnée qu'elle nous a envoyé avec un événement et de la donnée
-        socket.emit("mon_evenement_bien_recu", data);
-    });
-
-    socket.on("mon_evenement_pour_tout_le_monde", function (data) {
-
-        // On à TOUTES les sockets ce que la socket nous a envoyé
-        io.emit("mon_evenement_pour_tout_le_monde_bien_recu", {id: socket.id, date: data});
-    });
-
-    // Il y a un autre mot clef pour la déconnexion d'une socket !
-    socket.on("disconnect", function () {
-        io.emit("une_socket_s_est_deconnecte", `La socket '${socket.id}' vient de se déconnecter, au revoir !`);
-    })
-});
-
-
 /* ========== DECLARATION DES ROUTES ========== */
-
-/**
- * Permet à un administrateur d'envoyer un message à toutes les personnes qui sont sur le site
- * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
- * @middleware isSuperUser: Seul un super utilisateur a le droit d'accéder à cet endpoint
- */
-// Ici on est obligé de mettre cette route dans le fichier app.js car on ne pourra pas exporter la variable io pour y accéder de l'extérieur
-apiRouter.post('/message', isUserAuthenticated, isSuperUser, async (req, res) => {
-    try {
-        // On émet un événement pour que TOUS les clients reçoivent le message
-        io.emit("message_recu", req.body.message);
-        res.send("ok");
-    } catch (e) {
-        res.status(500).send(e.message);
-    }
-});
 
 // On déclare que la route de base '/api' sera utilisé comme base pour les routes du fichier routes/api.js
 app.use('/api',apiRouter)

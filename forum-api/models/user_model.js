@@ -47,7 +47,7 @@ async function deleteUser(idUser,callback){
 }
 
 async function getUser(idUser){
-  const sql = "SELECT `pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `id_utilisateur` = ?";
+  const sql = "SELECT `id_utilisateur`,`pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `id_utilisateur` = ?";
   try{
     return await new Promise((resolve, reject) => {
       db.query(sql,[idUser], function (err, result) {
@@ -84,7 +84,7 @@ async function getUserFromPseudo_Mdp(pseudo,mdp){
 }
 
 async function getUserFromPseudo(pseudo){
-  const sql = 'SELECT `pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `pseudo` = ?';
+  const sql = 'SELECT `id_utilisateur`, `pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `pseudo` = ?';
   try{
     return await new Promise((resolve, reject) => {
       db.query(sql,[pseudo], function (err, result) {

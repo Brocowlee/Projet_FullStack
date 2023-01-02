@@ -23,7 +23,6 @@ async function readMessage(messageId) {
  */
 async function deleteMessage(messageId) {
     message_model.deleteMessage(messageId,function(data){
-        //res.redirect('/');
         console.log("message deleted successfully!");
     });
 }

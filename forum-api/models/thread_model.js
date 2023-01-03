@@ -1,6 +1,7 @@
 const e = require('express');
 const db = require('../database');
 const userModel=require('./user_model');
+const postModel=require('./post_model');
 
 
 async function createThread(thread,userId,callback){
@@ -25,6 +26,29 @@ async function createThread(thread,userId,callback){
 }
 
 async function deleteThread(idThread,callback){
+
+  const sql = "SELECT `id_post` FROM `post` WHERE `id_thread` = ?";
+
+  try{
+        db.query(sql,[idThread], function (err, result) {
+          if (err) throw err;
+          result.forEach(function(element){
+            postModel.deletePost(element.id_post,function(data){
+              console.log("post deleted successfully!");
+            });
+          });
+        });
+  }
+  catch(e){
+    console.log(e.message);
+    return "erreur";
+  }
+
+  
+  db.query("DELETE FROM `utilisateur_thread` WHERE `id_thread` = ?",[idThread], function (err, result) {
+    if (err) throw err;
+  });
+
   db.query("DELETE FROM `thread` WHERE `id_thread` =?",[idThread], function (err, result) {
       if (err) throw err;
       return callback(result);

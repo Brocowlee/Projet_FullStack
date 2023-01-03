@@ -17,10 +17,29 @@ async function createPost(post,thread,userId,callback){
 }
 
 async function deletePost(idPost,callback){
-    db.query("DELETE FROM `post` WHERE `id_post` =?",[idPost], function (err, result) {
-      if (err) throw err;
-      return callback(result);
-    });
+
+  const sql = "SELECT `id_message` FROM `message` WHERE `id_post` = ?";
+
+  try{
+        db.query(sql,[idPost], function (err, result) {
+          if (err) throw err;
+          result.forEach(function(element){
+            db.query("DELETE FROM `message` WHERE `id_message` =?",[element.id_message], function (err, result) {
+              if (err) throw err;
+            });
+          });
+        });
+  }
+  catch(e){
+    console.log(e.message);
+    return "erreur";
+  }
+
+  db.query("DELETE FROM `post` WHERE `id_post` =?",[idPost], function (err, result) {
+    if (err) throw err;
+    return callback(result);
+  });
+
 }
 
 async function readPost(idPost){

@@ -17,10 +17,30 @@ async function createMessage(message,idPost,userId,callback){
 }
 
 async function deleteMessage(idMessage,callback){
+  
+  const sql = "SELECT `id_message` FROM `message` WHERE `id_message_lien` = ?";
+
+  try{
+        db.query(sql,[idMessage], function (err, result) {
+          if (err) throw err;
+          result.forEach(function(element){
+            db.query("DELETE FROM `message` WHERE `id_message` =?",[element.id_message], function (err, result) {
+              if (err) throw err;
+            });
+          });
+        });
+        
+  }
+  catch(e){
+    console.log(e.message);
+    return "erreur";
+  }
+
   db.query("DELETE FROM `message` WHERE `id_message` =?",[idMessage], function (err, result) {
     if (err) throw err;
     return callback(result);
   });
+
   }
 
 async function readMessage(idMessage){

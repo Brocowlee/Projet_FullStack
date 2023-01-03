@@ -266,7 +266,7 @@ const PostPage = () => {
         </div>
 
             <br></br>
-            <Heading className="is-3">Liste des messages</Heading>
+            <Heading className="is-3">Liste des messages :</Heading>
             <hr />
   
               {

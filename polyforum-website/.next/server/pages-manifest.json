@@ -1,6 +1,8 @@
 {
   "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/thread/[idThread]": "pages/thread/[idThread].js",
+  "/": "pages/index.js",
   "/thread/[idThread]/[idPost]": "pages/thread/[idThread]/[idPost].js"
 }

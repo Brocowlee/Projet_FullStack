@@ -1,6 +1,7 @@
 import {Button, Form, Heading} from "react-bulma-components";
 import {useState} from "react";
 import sha256 from "crypto-js/sha256";
+import {useRouter} from "next/router";
 import axios from "axios";
 
 /**
@@ -9,6 +10,8 @@ import axios from "axios";
  * @param showSuccessMessage Fonction pour montrer un message de succès
  */
 export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
+
+    const router = useRouter();
 
     /**
      * Les données pour la création d'un compte utilisateur
@@ -56,6 +59,7 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
 
             // Comme on est arrivé là, c'est que la création a fonctionné et on peut donc loe dire à l'utilisateur
             showSuccessMessage("Le compte a été créé avec succès.");
+            router.replace("/");
         }
 
             // Si on attrape une erreur alors on montre un message d'erreur

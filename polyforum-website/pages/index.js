@@ -5,7 +5,7 @@ import {useState, useEffect} from "react";
 import ProtectedRoute from "../components/protectedRoute";
 import axios from "axios";
 
-const IndexPage = () => {
+const IndexPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
     const [threads, setThreads] = useState([]);
   
     useEffect(() => {
@@ -40,6 +40,8 @@ const IndexPage = () => {
                 description={thread.description}
                 age={thread.limite_age}
                 date={thread.date_thread.split("T")[0]}
+                showErrorMessage={showErrorMessage}
+                showSuccessMessage={showSuccessMessage}
               />
             ))}
           </Columns.Column>

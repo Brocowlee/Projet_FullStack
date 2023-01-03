@@ -4,15 +4,18 @@ import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import $ from 'jquery';
 
-export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, createur, date, lien}) => {       
+export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, createur, date, lien, showErrorMessage, showSuccessMessage}) => {       
 
     let id_createur = createur;
 
     const [showCreateMessage, setShowCreateMessage] = useState(false);
+    let showDeleteMessage = false;
     let ShowLien = false;
     const [user, setUser] = useState([]);
     const [userResponse, setUserResponse] = useState([]);
+    const [admin, setadmin] = useState([]);
     const [mana, setMana] = useState([]);
+
     const link = `/api/thread/${id_thread}/${id_post}`;
 
     /**
@@ -56,6 +59,8 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
 
                     const response_user = await axios.get(`/api/userdata`);
                     setUserResponse(response_user.data[0].id_utilisateur);
+                    setadmin(response_user.data[0].admin);
+                    
                 }
                     // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
                 catch (e) {
@@ -72,7 +77,9 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
     newMessageData.id_post = id_post;
     newMessageData.id_message_lien = id_message;
     
-    
+    if(id_createur == userResponse || admin == 1){
+        showDeleteMessage = true;
+    }
 
     const createMessage = async () => {
          // On essaye de créer un message
@@ -95,8 +102,10 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
 
     const redirect = async () => {
        
+        const height = $(window).height();
+
         $('html, body').animate({
-            scrollTop: $("#" + lien).offset().top - 450
+            scrollTop: $("#" + lien).offset().top - (height / 2)
          }, 1750, function() {
             $("#" + lien).addClass('highlight');
             setTimeout(function() {
@@ -107,6 +116,30 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
 
 
     }
+
+    const deleteMessage = async () => {
+
+        const link_delete = `/api/thread/${id_thread}/${id_post}/${id_message}`;
+        try {
+
+            axios.delete(link_delete, {
+                id_message: id_message
+            });
+
+            window.location.reload();
+            showSuccessMessage("Vous avec supprimé le message avec succès");
+        }
+        
+            // Si on attrape une erreur alors on montre un message d'erreur
+        catch (e) {
+            console.log(e.message());
+           showErrorMessage("Il y a eu une erreur lors de la supression du message", e.response);
+        }
+
+
+    } 
+    
+    
    
     return (
         
@@ -119,12 +152,17 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
                     <div className="messageforum-column">
                         <a href={"/user/" + id_createur}><span><b>{user}</b></span></a>
                     </div>
-                    <div className="messageforum-column">
+                    <div className="messageforum-column-mana">
                         <span>Mana : {mana}</span>
                     </div>
                     <div className="messageforum-column-2">
                         <span>{date}</span>
                     </div>
+                    {showDeleteMessage && (
+                     <div className="messageforum-column-suppr">
+                        <Button className="is-block is-danger is-small" onClick={deleteMessage} >Supprimer</Button>
+                    </div>
+                    )}
                 </div>
                 
 

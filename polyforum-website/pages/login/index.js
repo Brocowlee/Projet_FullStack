@@ -13,7 +13,7 @@ const LoginPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
     // Sinon on renvoie la page pour se connecter
     return (
         <PageWrapper>
-            <Columns.Column className="is-4 is-offset-4 tp-notification-bigger">
+            <Columns.Column className="is-4 is-offset-4 polyforum-bigger">
                 <Columns>
                     <Columns.Column className="right has-text-centered">
                         <Heading className="is-3">Connexion</Heading>

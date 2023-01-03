@@ -9,7 +9,7 @@ import {CustomPuffLoader} from "../../../components/customPuffLoader";
 import ProtectedRoute from "../../../components/protectedRoute";
 import axios from "axios";
 
-const PostPage = () => {
+const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
 
   const [messages, setMessages] = useState([]);
   
@@ -99,7 +99,6 @@ const PostPage = () => {
 
         if(postdata.id_utilisateur == undefined) return;
 
-          console.log(postdata.id_utilisateur);
           (async () => {
 
             try {
@@ -281,6 +280,8 @@ const PostPage = () => {
                   createur={message.id_utilisateur}
                   date={message.date_message.split("T")[0]}
                   lien={message.id_message_lien}
+                  showErrorMessage={showErrorMessage}
+                  showSuccessMessage={showSuccessMessage}
                 />
               ))}
             <br></br>

@@ -47,13 +47,13 @@ body, .mainContent {
     min-height: 100vh;
 }
 
-.tp-notification {
+.polyforum {
     margin-top: 4rem;
     background: white;
     border-radius: 10px;
 }
 
-.tp-notification-bigger {
+.polyforum-bigger {
     margin-top: 10rem;
     background: white;
     border-radius: 10px;
@@ -79,38 +79,32 @@ body, .mainContent {
 }
 
 /* ########################################### */
-/*           Forums.html                       */
+/*           Affichage des threads             */
 /* ########################################### */
-.container{
-    margin: 20px;
-    padding: 20px;
-}
+
 
 .subforum{
     margin-top:20px;
 }
 
-.subforum-title{
-    padding: 5px;
-    border-radius: 5px;
-    margin:4px;
-}
-
 .subforum-row{
     display: grid;
     grid-template-columns: 20% 60% 5% 15%;
+    border-radius: 1px;
+    border-width: 1px;
     border: solid black;
 }
 
 .subforum-column{
     padding: 10px;
     margin:4px;
-    border-radius: 5px;
+    border-radius: 1px;
     border: solid grey;
 }
 
-.subforum-description *{
-    margin-block: 0;
+.subforum-delete{
+    padding: 10px;
+    margin:4px;
 }
 
 .center{
@@ -119,24 +113,13 @@ body, .mainContent {
     align-items: center;
 }
 
-.subforum-icon i{
-    font-size: 45px;
-}
 
-.subforum-devider{
-    display: none;   
-}
-
-/* ---------------------------------------------------------------------------------------- */
+/* ########################################### */
+/*           Affichage des posts               */
+/* ########################################### */
 
 .postforum{
     margin-top:20px;
-}
-
-.postforum-title{
-    padding: 5px;
-    border-radius: 5px;
-    margin:4px;
 }
 
 .postforum-row{
@@ -152,20 +135,17 @@ body, .mainContent {
     border: solid grey;
 }
 
-.postforum-description *{
-    margin-block: 0;
+.postforum-delete{
+    padding: 10px;
+    margin:4px;
 }
 
-/* ---------------------------------------------------------------------------------------- */
+/* ########################################### */
+/*           Affichage des messages            */
+/* ########################################### */
 
 .messageforum{
     margin-top:20px;
-}
-
-.messageforum-title{
-    padding: 5px;
-    border-radius: 5px;
-    margin:4px;
 }
 
 .messageforum-row{
@@ -179,7 +159,16 @@ body, .mainContent {
 
 .messageforum-column{
     padding: 10px;
-    margin:4px;
+    margin:4px;   
+}
+
+.messageforum-column-mana{
+    padding: 10px;
+    margin:4px;   
+    border-radius: 5px; 
+    position: absolute;
+    grid-row-end: span 2;
+    top: 35px;
 }
 
 .border-right{
@@ -188,6 +177,15 @@ body, .mainContent {
 }
 
 .messageforum-column-2{
+    padding: 10px;
+    margin:4px;
+    border-radius: 5px; 
+    position: absolute;
+    bottom: 30px;
+    grid-row-end: span 2;
+}  
+
+.messageforum-column-suppr{
     padding: 10px;
     margin:4px;
     border-radius: 5px; 
@@ -214,17 +212,9 @@ body, .mainContent {
     border-radius: 5px;
   }
 
-
-.messageforum-description *{
-    margin-block: 0;
-}
-
-.to-right{
-    float: right;
-    clear: right;
-}
-
-/* ---------------------------------------------------------------------------------------- */
+/* ########################################### */
+/*           Compte utilisateur                */
+/* ########################################### */
 
 .account-row{
     display: grid;
@@ -237,11 +227,9 @@ body, .mainContent {
     border-radius: 5px;
 }
 
-.account-description *{
-    margin-block: 0;
-}
-
-/* ---------------------------------------------------------------------------------------- */
+/* ########################################### */
+/*           Information d'un post             */
+/* ########################################### */
 
 .postdata{
     margin-top:20px;
@@ -257,10 +245,6 @@ body, .mainContent {
     padding: 1px;
     margin:4px;
     border-radius: 5px;
-}
-
-.postdata-description *{
-    margin-block: 0;
 }
 
 .highlight {

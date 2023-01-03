@@ -1,6 +1,7 @@
 const express = require("express");
 const {printSession} = require("../middlewares/index.js");
 const user_controller = require("../controllers/user_controller.js");
+const thread_controller = require("../controllers/thread_controller.js");
 const {isUserAuthenticated, checkUserNotAlreadyAuthenticated, isSuperUser, isUserAsking} = require("../middlewares");
 
 // On crée le router de l'api
@@ -73,7 +74,7 @@ apiRouter.get('/userdata', isUserAuthenticated, async (req, res) => {
     } catch (e) {
 
         // On renvoie l'erreur avec un code 500 (Internal Server Error)
-        res.status(500).send(e.message)
+        res.status(500).send(e.message);
     }
 });
 
@@ -88,6 +89,16 @@ apiRouter.get('/authenticated', isUserAuthenticated, async (req, res) => {
         isUserLogged: true,
         isSuperUser: req.session.isSuperUser === true
     })
+});
+
+/**
+ * On regarde si l'utilisateur est connecté
+ * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
+ */
+apiRouter.get('/isSuperUserThread/:idUser/:idThread', isUserAuthenticated, async (req, res) => {
+    
+    // Comme le router fait foi que l'utilisateur est connecté on sait que si l'on retourne quelque chose alors c'est parce qu'il est connecté
+    res.json(await thread_controller.isSuperUserThread(req.params.idUser,req.params.idThread));
 });
 
 

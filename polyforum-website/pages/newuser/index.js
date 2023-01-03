@@ -10,7 +10,7 @@ import {UserCreationForm} from "../../components/users/userCreationForm";
 const NewUserPage = ({showErrorMessage, showSuccessMessage}) => {
     return (
         <PageWrapper>
-            <Columns.Column className="is-8 is-offset-2 tp-notification">
+            <Columns.Column className="is-8 is-offset-2 polyforum">
                 <Heading className="is-3">Créer un compte</Heading>
                 <hr/>
                 <UserCreationForm showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage}/>

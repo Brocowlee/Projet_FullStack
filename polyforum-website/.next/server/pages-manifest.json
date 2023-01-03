@@ -2,7 +2,11 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/thread/[idThread]": "pages/thread/[idThread].js",
+  "/newthread": "pages/newthread.js",
   "/": "pages/index.js",
+  "/user/[userId]": "pages/user/[userId].js",
+  "/logout": "pages/logout.js",
+  "/login": "pages/login.js",
+  "/thread/[idThread]": "pages/thread/[idThread].js",
   "/thread/[idThread]/[idPost]": "pages/thread/[idThread]/[idPost].js"
 }

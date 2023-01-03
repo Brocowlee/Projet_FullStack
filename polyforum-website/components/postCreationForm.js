@@ -28,8 +28,6 @@ export const PostCreationForm = ({id_utilisateur_received, id_thread_received, s
     newPostData.id_thread = id_thread_received;
     newPostData.id_utilisateur = id_utilisateur_received;
 
-    console.log(newPostData.id_thread)
-
     /**
      * Fonction utilisée pour mettre à jour les champs, soit le type d'input est une checkbox où alors la valeur sera stockée dans l'attribut checked et non value
      * @param e L'événement

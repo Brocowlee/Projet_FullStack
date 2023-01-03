@@ -30,7 +30,7 @@ const NewPostPage = ({showErrorMessage, showSuccessMessage}) => {
 
     return (
         <PageWrapper>
-            <Columns.Column className="is-8 is-offset-2 tp-notification">
+            <Columns.Column className="is-8 is-offset-2 polyforum">
                 <Heading className="is-3 center">Créer un Post</Heading>
                 <hr/>
 

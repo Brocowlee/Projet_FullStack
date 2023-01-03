@@ -8,7 +8,7 @@ import {CustomPuffLoader} from "../../components/customPuffLoader";
 import ProtectedRoute from "../../components/protectedRoute";
 import axios from "axios";
 
-const ThreadPage = () => {
+const ThreadPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
 
   const [posts, setPosts] = useState([]);
   
@@ -101,6 +101,8 @@ const ThreadPage = () => {
                   contenu={post.contenu_post}
                   createur={post.id_utilisateur}
                   date={post.date_post.split("T")[0]}
+                  showErrorMessage={showErrorMessage}
+                  showSuccessMessage={showSuccessMessage}
                 />
               ))}
           </Columns.Column>

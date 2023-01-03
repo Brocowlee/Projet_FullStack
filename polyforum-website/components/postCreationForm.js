@@ -113,7 +113,7 @@ export const PostCreationForm = ({id_utilisateur_received, id_thread_received, s
                 </Form.Control>
             </Form.Field>
 
-            <Button onClick={createPost} className="is-block is-info is-fullwidth is-medium">Créer le thread</Button>
+            <Button onClick={createPost} className="is-block is-info is-fullwidth is-medium">Créer le post</Button>
         </form>
     )
 }

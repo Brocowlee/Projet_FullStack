@@ -68,7 +68,7 @@ const ThreadPage = () => {
       return (
         <PageWrapper>
           <Columns.Column className="is-full posts-list">
-          <a href={'/newpost/' + thread}><Button className="is-block is-info is-fullwidth is-medium">Créer un poste</Button></a>
+          <a href={'/newpost/' + thread}><Button className="is-block is-info is-fullwidth is-medium">Créer un post</Button></a>
             <br></br>
             <Heading className="is-3">Il n'y a aucun poste pour le moment</Heading>
 
@@ -81,7 +81,7 @@ const ThreadPage = () => {
           <Columns.Column className="is-full posts-list">
             <Heading className="is-1 center"><b>{posts.thread[0].titre}</b></Heading>
             <br></br>
-            <a href={'/newpost/' + thread}><Button className="is-block is-info is-fullwidth is-medium">Créer un poste</Button></a>
+            <a href={'/newpost/' + thread}><Button className="is-block is-info is-fullwidth is-medium">Créer un post</Button></a>
             <br></br>
             <Heading className="is-3">Liste des postes :</Heading>
             <hr />

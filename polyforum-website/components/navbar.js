@@ -40,15 +40,6 @@ export const Navbar = ({router}) => {
     })
 
     const [user_id, setUserId] = useState([]);
-    
-    useEffect(() => {
-        (async () => {
-
-            const response = await axios.get(`/api/userdata`);
-            setUserId(response.data[0].id_utilisateur);
-
-        })()
-    }, );
 
     /**
      * useEffect pour savoir si l'utilisateur est toujours connecté et pour mettre à jour la barre de navigation en conséquence.
@@ -63,6 +54,8 @@ export const Navbar = ({router}) => {
                 // Si la requête est un succès alors on peut mettre la réponse de si l'utilisateur est connecté et s'il est un "super utilisateur"
                 setIsUserLogged(isUserLoggedData.isUserLogged);
                 setIsSuperUser(isUserLoggedData.isSuperUser);
+                const response = await axios.get(`/api/userdata`);
+                setUserId(response.data[0].id_utilisateur);
             }
 
                 // Si on attrape une erreur alors on met que l'utilisateur n'est ni connecté, ni un "super utilisateur"

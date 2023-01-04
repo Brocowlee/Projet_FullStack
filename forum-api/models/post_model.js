@@ -2,7 +2,9 @@ const express = require('express');
 const db = require('../database');
 const userModel=require('./user_model');
 
-
+/**
+ * Crée un post
+ */
 async function createPost(post,thread,userId,callback){
     const date=new Date().toISOString().slice(0, 10);
 
@@ -16,6 +18,9 @@ async function createPost(post,thread,userId,callback){
     });
 }
 
+/**
+ * Supprime un post ainsi que ces messages
+ */
 async function deletePost(idPost,callback){
 
   const sql = "SELECT `id_message` FROM `message` WHERE `id_post` = ?";
@@ -42,6 +47,9 @@ async function deletePost(idPost,callback){
 
 }
 
+/**
+ * Lit un post
+ */
 async function readPost(idPost){
   const sql = "SELECT `titre`, `contenu_post`, `date_post`, `id_thread`, `id_utilisateur` FROM `post` WHERE `id_post` = ?";
   try{
@@ -60,6 +68,9 @@ async function readPost(idPost){
   }
 }
 
+/**
+ * Lit tous les posts d'un thread
+ */
 async function readAllPost_Thread(idThread){
     const sql = "SELECT * FROM `post` WHERE `id_thread`= ?";
     try{

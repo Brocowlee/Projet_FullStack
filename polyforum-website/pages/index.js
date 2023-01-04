@@ -5,6 +5,12 @@ import {useState, useEffect} from "react";
 import ProtectedRoute from "../components/protectedRoute";
 import axios from "axios";
 
+/**
+ * Page principale du projet
+ * @param showErrorMessage Fonction pour montrer un message d'erreur
+ * @param showInfoMessage Fonction pour montrer un message d'information
+ * @param showSuccessMessage Fonction pour montrer un message de succès
+ */
 const IndexPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
     const [threads, setThreads] = useState([]);
   

@@ -3,7 +3,9 @@ const db = require('../database');
 const userModel=require('./user_model');
 const postModel=require('./post_model');
 
-
+/**
+ * Créer un thread
+ */
 async function createThread(thread,userId,callback){
   const date=new Date().toISOString().slice(0, 10);
   const alreadyExistingThread = await readThreadFromTitre(thread.titre);
@@ -25,6 +27,9 @@ async function createThread(thread,userId,callback){
 });
 }
 
+/**
+ * Supprime un thread ainsi que tous les posts associés
+ */
 async function deleteThread(idThread,callback){
 
   const sql = "SELECT `id_post` FROM `post` WHERE `id_thread` = ?";
@@ -55,6 +60,9 @@ async function deleteThread(idThread,callback){
     });
 }
 
+/**
+ * Lit un thread
+ */
 async function readThread(idThread){
   const sql = "SELECT `titre`, `description`, `limite_age`, `date_thread` FROM `thread` WHERE `id_thread` = ?";
   try{
@@ -73,6 +81,9 @@ async function readThread(idThread){
   }
 }
 
+/**
+ * Lit un thread par son titre
+ */
 async function readThreadFromTitre(idThread){
   const sql = "SELECT * FROM `thread` WHERE `titre` = ?";
   try{
@@ -91,6 +102,9 @@ async function readThreadFromTitre(idThread){
   }
 }
 
+/**
+ * Lit tous les threads
+ */
 async function readAllThread(){
   const sql = "SELECT * FROM `thread`";
   const res=[];
@@ -113,6 +127,9 @@ async function readAllThread(){
   }
 }
 
+/**
+ * Renvoi la valeur admin d'un utilisateur par rapport à un thread
+ */
 async function isSuperUserThread(idUser,idThread){
   const sql = "SELECT admin FROM `utilisateur_thread` WHERE `id_utilisateur`=" + idUser  + " AND id_thread =" + idThread;
   try{

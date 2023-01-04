@@ -11,6 +11,9 @@ import axios from "axios";
  */
 export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
 
+    /**
+    * On récupère le routeur
+    */
     const router = useRouter();
 
     /**
@@ -69,7 +72,7 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
     }
 
     /**
-     * Fonction qui s'exécute si un utilisateur appuie sur la touche entrée (pour que ça soit plus rapide que de cliquer sur le bouter de connexion)
+     * Fonction qui s'exécute si un utilisateur appuie sur la touche entrée
      * @param event L'événement
      */
     const handleKeyDown = (event) => {

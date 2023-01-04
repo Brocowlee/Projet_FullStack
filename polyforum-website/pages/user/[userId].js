@@ -3,12 +3,11 @@ import {Columns, Heading} from "react-bulma-components";
 import {ShowUserData} from "../../components/users/showUserData";
 import {useRouter} from 'next/router';
 
-/**+
+/**
  * La page pour afficher les informations d'un utilisateur
- * @param showErrorMessage Fonction pour montrer un message d'erreur
- * @param showSuccessMessage Fonction pour montrer un message de succès
+ * @param showErrorMessage Fonction pour montrer un message d'erreurs
  */
-const UserPage = ({showErrorMessage, showSuccessMessage}) => {
+const UserPage = ({showErrorMessage}) => {
 
     const router = useRouter();
 
@@ -19,7 +18,7 @@ const UserPage = ({showErrorMessage, showSuccessMessage}) => {
     return (
         <PageWrapper>
             <Columns.Column className="is-8 is-offset-2 tp-notification">
-            <ShowUserData id_utilisateur={user_id}/>
+            <ShowUserData id_utilisateur={user_id} showErrorMessage={showErrorMessage}/>
             </Columns.Column>
         </PageWrapper>
     )

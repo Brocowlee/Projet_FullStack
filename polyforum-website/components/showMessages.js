@@ -4,13 +4,31 @@ import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import $ from 'jquery';
 
+/** Le composant pour afficher les messages d'un post
+* @param id_message id du message
+* @param id_post id du post
+* @param id_thread id du thread 
+* @param contenu_message contenu du message
+* @param createur createur du message
+* @param date date du message
+* @param lien id du parent du message
+* @param showErrorMessage Fonction pour montrer un message d'erreur
+* @param showSuccessMessage Fonction pour montrer un message de succès
+*/
 export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, createur, date, lien, showErrorMessage, showSuccessMessage}) => {       
 
+    /**
+     * l'id du créateur du post
+     */
     let id_createur = createur;
-
     const [showCreateMessage, setShowCreateMessage] = useState(false);
+
     let showDeleteMessage = false;
     let ShowLien = false;
+
+    /**
+     * Utilisateur actuel
+     */
     const [user, setUser] = useState([]);
     const [userResponse, setUserResponse] = useState([]);
     const [admin, setadmin] = useState([]);
@@ -48,12 +66,10 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
     useEffect(() => {
         (async () => {
             if (!loaded) {
-                // On essaye de faire la requête pour récupérer l'utilisateur
 
                 try {
                     const response = await axios.get(`/api/user/${id_createur}`);
 
-                    // On met à jour l'utilisateur
                     setUser(response.data[0].pseudo);
                     setMana(response.data[0].mana);
 
@@ -62,9 +78,9 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
                     setadmin(response_user.data[0].admin);
                     
                 }
-                    // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
+                    // Si on attrape une erreur alors on montre un message d'erreur
                 catch (e) {
-                    showErrorMessage("Il y a eu une erreur lors de la récupération de l'utilisateur", e.response.data);
+                    showErrorMessage("Il y a eu une erreur lors de la récupération des données", e.response.data);
                 }
 
                 setLoaded(true);
@@ -92,14 +108,14 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
          });         
 
      }
- 
-     
-         // Si on attrape une erreur alors on montre un message d'erreur
+    // Si on attrape une erreur alors on montre un message d'erreur
      catch (e) {
-         showErrorMessage("Il y a eu une erreur lors de la création du thread", e.response.data);
+         showErrorMessage("Il y a eu une erreur lors de la création du message", e.response.data);
      }
     }
 
+    
+    //Fonction pour rediriger vers le message parent
     const redirect = async () => {
        
         const height = $(window).height();
@@ -113,10 +129,11 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
               }, 500);
           });
 
-
-
     }
 
+    
+     // Fonction our supprimer un message
+     
     const deleteMessage = async () => {
 
         const link_delete = `/api/thread/${id_thread}/${id_post}/${id_message}`;
@@ -137,13 +154,9 @@ export const ShowMessages = ({id_message,id_post,id_thread,contenu_message, crea
         }
 
 
-    } 
-    
-    
-   
-    return (
-        
-        
+    }    
+      
+    return (           
 
         <div className="messageforum">
             <div id={id_message} className="messageforum-row">

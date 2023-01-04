@@ -92,7 +92,7 @@ apiRouter.get('/authenticated', isUserAuthenticated, async (req, res) => {
 });
 
 /**
- * On regarde si l'utilisateur est connecté
+ * On regarde si l'utilisateur est admin d'un thread
  * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
  */
 apiRouter.get('/isSuperUserThread/:idUser/:idThread', isUserAuthenticated, async (req, res) => {

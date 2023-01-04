@@ -8,47 +8,59 @@ import {CustomPuffLoader} from "../../components/customPuffLoader";
 import ProtectedRoute from "../../components/protectedRoute";
 import axios from "axios";
 
-const ThreadPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
+/**
+ * La page pour afficher les postes d'un thread
+ * @param showErrorMessage Fonction pour montrer un message d'erreur
+ * @param showSuccessMessage Fonction pour montrer un message de succès
+ */
+const ThreadPage = ({showErrorMessage, showSuccessMessage}) => {
 
+  /**
+  * les posts du thread
+  */
   const [posts, setPosts] = useState([]);
   
+  /**
+  * On récupère le routeur
+  */
   const router = useRouter();
-    /**
-    * l'id du thread
-    */
-    let thread = router.query.idThread;
+    
+  /**
+  * l'id du thread
+  */
+  let thread = router.query.idThread;
 
-    /**
-     * Si la donnée a été récupérée
-     */
-    const [loaded, setLoaded] = useState(false);
+  /**
+   * Si la donnée a été récupérée
+   */
+  const [loaded, setLoaded] = useState(false);
 
-    const link = `/api/thread/${thread}`;
+  const link = `/api/thread/${thread}`;
 
-    useEffect(() => {
-      if(!router.isReady) return;
-      
+  useEffect(() => {
+    if(!router.isReady) return;
+    
 
-        (async () => {
+      (async () => {
 
-            // On veut faire la requête une seule fois
-            if (!loaded) {
+          // On veut faire la requête une seule fois
+          if (!loaded) {
 
-                try {
-                    const response = await axios.get(link);
+              try {
+                  const response = await axios.get(link);
 
-                    setPosts(response.data);
-                }
+                  setPosts(response.data);
+              }
 
-                    // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
-                catch (e) {
-                    showErrorMessage("Il y a eu une erreur lors de la récupération de l'utilisateur", e.response.data);
-                }
+                  // Si on attrape une erreur alors on montre un message d'erreur et on met que le thread est non défini
+              catch (e) {
+                  showErrorMessage("Il y a eu une erreur lors de la récupération du thread", e.response.data);
+              }
 
-                // On dit que la donnée est mise à jour
-                setLoaded(true);
-            }
-        })()
+              // On dit que la donnée est mise à jour
+              setLoaded(true);
+          }
+      })()
     }, [loaded, router.isReady]);
 
 
@@ -57,7 +69,7 @@ const ThreadPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => 
       return <CustomPuffLoader/>
     }
 
-    // Si l'utilisateur n'est pas défini ça veut dire qu'il n'existe pas et donc on veut revenir à la page des utilisateurs
+    // Si les posts d'un thread ne sont pas définis ça veut dire qu'ils n'existent pas et donc on veut revenir à la page principale
     if (posts === undefined) {
       router.replace("/");
       return null;

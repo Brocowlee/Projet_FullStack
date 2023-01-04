@@ -1,7 +1,9 @@
 const crypto = require("crypto");
 const db = require('../database');
 
-
+/**
+ * Créer un utilisateur
+ */
 async function createUser(user,callback){
     
     // On fait des tests
@@ -38,6 +40,9 @@ async function createUser(user,callback){
     });
 }
 
+/**
+ * Supprime un utilisateur
+ */
 async function deleteUser(idUser,callback){
   const sql = "DELETE FROM utilisateur WHERE id_utilisateur =?";
   db.query(sql,[idUser], function (err, result) {
@@ -46,6 +51,9 @@ async function deleteUser(idUser,callback){
     });
 }
 
+/**
+ * Lit  un utilisateur
+ */
 async function getUser(idUser){
   const sql = "SELECT `id_utilisateur`,`pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `id_utilisateur` = ?";
   try{
@@ -64,6 +72,9 @@ async function getUser(idUser){
   }
 }
 
+/**
+ * Lit un utilisateur par son pseudo et mdp
+ */
 async function getUserFromPseudo_Mdp(pseudo,mdp){
   const sql = 'SELECT `id_utilisateur`,`pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `pseudo` = ? AND `mdp` = ?';
   try{
@@ -83,6 +94,9 @@ async function getUserFromPseudo_Mdp(pseudo,mdp){
   }
 }
 
+/**
+ * Lit un utilisateur par son pseudo
+ */
 async function getUserFromPseudo(pseudo){
   const sql = 'SELECT `id_utilisateur`, `pseudo`, `mdp`, `age`, `date_creation_compte`, `mana`, `admin` FROM `utilisateur` WHERE `pseudo` = ?';
   try{
@@ -101,6 +115,9 @@ async function getUserFromPseudo(pseudo){
   }
 }
 
+/**
+ * change le pseudo d'un utilisateur
+ */
 async function updatePseudoUser(pseudo,idUser,callback){
   // On regarde déjà si un compte n'existe pas à ce pseudo (pour ne pas en recréer un)
   const alreadyExistingAccount = await getUserFromPseudo(pseudo);

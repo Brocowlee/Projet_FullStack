@@ -29,7 +29,7 @@ async function readUser(userId) {
 }
 
 /**
- * Lire un utilisateur par son id unique
+ * Lire un utilisateur par son pseudo et mdp
  * @param pseudo pseudo de l'utilisateur à lire
  * @param mdp mdp de l'utilisateur à lire
  * @returns L'utilisateur trouvé
@@ -38,6 +38,11 @@ async function getUserFromPseudo_Mdp(pseudo,mdp){
     return await userModel.getUserFromPseudo_Mdp(pseudo,mdp)
 }
 
+/**
+ * Lire un utilisateur par son pseudo
+ * @param pseudo pseudo de l'utilisateur à lire
+ * @returns L'utilisateur trouvé
+ */
 async function readUserFromPseudo(pseudo){
     return await userModel.getUserFromPseudo(pseudo)
 }
@@ -104,13 +109,6 @@ const logInUser = async (headerAuthorization) => {
     throw new Error("Aucun compte n'a été trouvé avec ces identifiants");
 }
 
-/**
- * Récupère TOUS les utilisateurs depuis la base de données
- */
-async function readAllUsers() {
-    return "sakut";
-}
-
 // On exporte les modules
 module.exports = {
     createUser: createUser,
@@ -122,6 +120,5 @@ module.exports = {
     updateAgeUser: updateAgeUser,
     updateManaUser: updateManaUser,
     deleteUser: deleteUser,
-    readAllUsers: readAllUsers,
     logInUser : logInUser
 }

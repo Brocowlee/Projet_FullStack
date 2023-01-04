@@ -7,15 +7,25 @@ import ProtectedRoute from "../../components/protectedRoute";
 import axios from "axios";
 
 /**
- * La page pour créer un nouvau post, c'est à dire le '/newpost'
+ * La page pour créer un nouveau post, c'est à dire le '/newpost'
  * @param showErrorMessage Fonction pour montrer un message d'erreur
  * @param showSuccessMessage Fonction pour montrer un message de succès
  */
 const NewPostPage = ({showErrorMessage, showSuccessMessage}) => {
 
+    /**
+    * On récupère le routeur
+    */
     const router = useRouter();
 
+    /**
+     * L'id d'un utilisateur
+     */
     const [user_id, setUserId] = useState([]);
+
+    /**
+     * L'id du thread
+     */
     let thread_id = router.query.idThreadForPost;
     
     useEffect(() => {

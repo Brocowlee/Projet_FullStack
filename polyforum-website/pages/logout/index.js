@@ -26,6 +26,7 @@ const LogoutPage = ({showErrorMessage, showSuccessMessage}) => {
                 // Si c'est bien le cas alors on montre le message
                 showSuccessMessage("Vous avez bien été déconnecté");
             } catch (e) {
+                showErrorMessage("Erreur lors de la deconnexion");
             }
 
             // On redirige l'utilisateur vers la page d'accueil

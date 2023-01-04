@@ -2,19 +2,36 @@ import {useState, useEffect} from "react";
 import {useRouter} from 'next/router';
 import axios from "axios";
 
-export const ShowUserData = ({id_utilisateur}) => {
+/**
+ * Le composant pour que l'utilisateur se connecte
+ * @param id_utilisateur identifiant de l'utilisateur
+ * @param showErrorMessage Fonction pour montrer un message d'erreur
+ */
+export const ShowUserData = ({id_utilisateur, showErrorMessage}) => {
 
     /**
      * Si la donnée a été récupérée
      */
     const [loaded, setLoaded] = useState(false);
 
+     /**
+     * Le lien vers l'api
+     */
     const link = `/api/user/${id_utilisateur}`;
 
+    /**
+    * Les indormations de l'utilisateur
+    */
     const [userData, setUserData] = useState([]);
 
+    /**
+    * On récupère le routeur
+    */
     const router = useRouter();
 
+     /**
+     * date de création
+     */
     const [date, setDate] = useState([]);
 
     useEffect(() => {     
@@ -33,7 +50,7 @@ export const ShowUserData = ({id_utilisateur}) => {
 
                     // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
                 catch (e) {
-                   
+                    showErrorMessage("Il y a eu une erreur lors de la connexion de l'utilisateur", e.response.data);
                 }
 
                 // On dit que la donnée est mise à jour

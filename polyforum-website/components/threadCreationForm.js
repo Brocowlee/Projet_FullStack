@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import axios from "axios";
 
 /**
- * Le composant pour créer un utilisateur
+ * Le composant pour créer un thread
  * @param showErrorMessage Fonction pour montrer un message d'erreur
  * @param showSuccessMessage Fonction pour montrer un message de succès
  */
@@ -16,7 +16,7 @@ export const ThreadCreationForm = ({showErrorMessage, showSuccessMessage}) => {
     const router = useRouter();
 
     /**
-     * Les données pour la création d'un compte utilisateur
+     * Les données pour la création d'un thread
      */
     const [newThreadData, setNewThreadData] = useState({
         titre: "",
@@ -47,7 +47,7 @@ export const ThreadCreationForm = ({showErrorMessage, showSuccessMessage}) => {
         // Nous vérifions d'abord que tous les champs ont été remplis, sinon nous affichons un message
         for (const key in newThreadData) {
             if (newThreadData[key] === '') {
-                return showErrorMessage(`Une ou plusieurs valeur de connexion n'a pas été remplie`, "Veuillez recommencer");
+                return showErrorMessage(`Une ou plusieurs valeur n'a pas été remplie`, "Veuillez recommencer");
             }
         }
 
@@ -71,7 +71,7 @@ export const ThreadCreationForm = ({showErrorMessage, showSuccessMessage}) => {
     }
 
     /**
-     * Fonction qui s'exécute si un utilisateur appuie sur la touche entrée (pour que ça soit plus rapide que de cliquer sur le bouter de connexion)
+     * Fonction qui s'exécute si un utilisateur appuie sur la touche entrée
      * @param event L'événement
      */
     const handleKeyDown = (event) => {

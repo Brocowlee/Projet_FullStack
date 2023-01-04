@@ -2,7 +2,9 @@ const e = require('express');
 const db = require('../database');
 const userModel=require('./user_model');
 
-
+/**
+ * Crée un message
+ */
 async function createMessage(message,idPost,userId,callback){
     const date=new Date().toISOString().slice(0, 10);
 
@@ -16,6 +18,9 @@ async function createMessage(message,idPost,userId,callback){
       });
 }
 
+/**
+ * Supprime un message et tous les reponses associé
+ */
 async function deleteMessage(idMessage,callback){
   
   const sql = "SELECT `id_message` FROM `message` WHERE `id_message_lien` = ?";
@@ -43,6 +48,9 @@ async function deleteMessage(idMessage,callback){
 
   }
 
+  /**
+ * Lit un message
+ */
 async function readMessage(idMessage){
   const sql = "SELECT `contenu_message`, `date_message`, `id_utilisateur`,`id_post`,`id_message_lien` FROM `message` WHERE `id_message` = ?";
   try{
@@ -59,9 +67,12 @@ async function readMessage(idMessage){
     console.log(e.message);
     return "erreur";
   }
-  }
+}
 
-  async function readAllMessage_Post(idPost){
+/**
+ * Crée tous les messages d'un post
+ */
+async function readAllMessage_Post(idPost){
     const sql = "SELECT * FROM `message` WHERE `id_post`= ?";
     const res=[];
     try{

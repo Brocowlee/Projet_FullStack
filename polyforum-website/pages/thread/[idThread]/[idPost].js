@@ -9,10 +9,21 @@ import {CustomPuffLoader} from "../../../components/customPuffLoader";
 import ProtectedRoute from "../../../components/protectedRoute";
 import axios from "axios";
 
-const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
+/**
+ * La page pour afficher les mesages d'un post
+ * @param showErrorMessage Fonction pour montrer un message d'erreur
+ * @param showSuccessMessage Fonction pour montrer un message de succès
+ */
+const PostPage = ({showErrorMessage, showSuccessMessage}) => {
 
+  /**
+  * Les messages d'un post
+  */
   const [messages, setMessages] = useState([]);
   
+  /**
+  * On récupère le routeur
+  */
   const router = useRouter();
 
     /**
@@ -20,6 +31,9 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
     */
     let thread = router.query.idThread;
 
+    /**
+    * l'id du post
+    */
     let post = router.query.idPost;
 
     /**
@@ -27,26 +41,44 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
      */
     const [loaded, setLoaded] = useState(false);
 
+    /**
+    * l'id de l'utilisateur
+    */
     const [user_id, setUserId] = useState([]);
 
+    /**
+    * l'me titre du thread
+    */
     const [thread_title, setThreadTitle] = useState([]);
 
+    /**
+    * les informations du post
+    */
     const [postdata, setPostData] = useState([]);
 
+    /**
+    * les informations de l'utilisateur
+    */
     const [userData, setUserData] = useState([]);
 
+    /**
+    * les informations du message
+    */
     const [newMessageData, setNewMessageData] = useState({
       contenu_message: "",
       id_utilisateur: "",
       id_post: ""
     })
 
+    /**
+    * le lien pour l'api
+    */
     const link = `/api/thread/${thread}/${post}`;
 
     /**
-       * Fonction utilisée pour mettre à jour les champs
-       * @param e L'événement
-       */
+    * Fonction utilisée pour mettre à jour les champs
+    * @param e L'événement
+    */
     const updateField = (e) => {
       setNewMessageData({
           ...newMessageData,
@@ -63,8 +95,6 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
             // On veut faire la requête une seule fois
             if (!loaded) {
 
-                // On essaye de faire la requête pour récupérer l'utilisateur
-
                 try {
 
                     const response_user = await axios.get(`/api/userdata`);
@@ -80,11 +110,11 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
                     setPostData(response.data.post[0]);
 
                     
-                                  }
+                    }
 
-                    // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
+                // Si on attrape une erreur alors on montre un message d'erreur
                 catch (e) {
-                    showErrorMessage("Il y a eu une erreur lors de la récupération de l'utilisateur", e.response.data);
+                    showErrorMessage("Il y a eu une erreur lors de la récupération des données", e.response.data);
                 }
 
                 // On dit que la donnée est mise à jour
@@ -107,9 +137,9 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
               setUserData(response_user_data.data[0]);
               
 
-
+            // Si on attrape une erreur alors on montre un message d'erreur
             }catch(e){
-
+              showErrorMessage("Il y a eu une erreur lors de la récupération des données", e.response.data);
             }
 
         })()
@@ -121,7 +151,7 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
       return <CustomPuffLoader/>
     }
 
-    // Si l'utilisateur n'est pas défini ça veut dire qu'il n'existe pas et donc on veut revenir à la page des utilisateurs
+    // Si les messages ne sont pas définis ça veut dire qu'ils n'existent pas et donc on veut revenir à la page principale
     if (messages === undefined) {
       router.replace("/");
       return null;
@@ -144,13 +174,14 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
     }
 
     
-        // Si on attrape une erreur alors on montre un message d'erreur
+    // Si on attrape une erreur alors on montre un message d'erreur
     catch (e) {
-        showErrorMessage("Il y a eu une erreur lors de la création du thread", e.response.data);
+        showErrorMessage("Il y a eu une erreur lors de la création du message", e.response.data);
     }
 
     }
     
+     // Si c'est une page vide
     if(messages == "" || messages == undefined){
       return (
         <PageWrapper>
@@ -195,11 +226,7 @@ const PostPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
               </div>
   
         </div>
-
-
-
-
-
+        
             <br></br>
           <Heading className="is-3">Il n'y a aucun message dans ce poste pour le moment</Heading>
           <br></br>

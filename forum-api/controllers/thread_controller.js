@@ -2,9 +2,10 @@ const db=require('../database');
 const thread_model=require('../models/thread_model')
 
 /**
- * Créer un utilisateur
- * @param user L'utilisateur à créer
- * @returns L'utilisateur crée
+ * Créer un thread
+ * @param thread Les informations du thread à créer
+ * @param userId L'utilisateur qui crée le thread
+ * @returns Le thread crée
  */
  async function createThread(thread,userId) {
     thread_model.createThread(thread,userId,function(data){
@@ -13,9 +14,9 @@ const thread_model=require('../models/thread_model')
 }
 
 /**
- * Lire un utilisateur par son id unique créé par MongoDB
- * @param threadId L'identifiant de l'utilisateur à lire
- * @returns L'utilisateur trouvé
+ * Lire un thread par son id
+ * @param threadId L'identifiant du thread à lire
+ * @returns Le thread trouvé
  */
 async function readThread(threadId) {
     return await thread_model.readThread(threadId)
@@ -35,7 +36,7 @@ async function deleteThread(threadId) {
 
 
 /**
- * Récupère TOUS les utilisateurs depuis la base de données
+ * Récupère TOUS les thread depuis la base de données
  */
 async function readAllThread() {
     return await thread_model.readAllThread()

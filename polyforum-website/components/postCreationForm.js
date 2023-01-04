@@ -5,6 +5,8 @@ import axios from "axios";
 
 /**
  * Le composant pour créer un post
+ * @param id_utilisateur_received id du createur du post
+ * @param id_thread_received id du thread créé
  * @param showErrorMessage Fonction pour montrer un message d'erreur
  * @param showSuccessMessage Fonction pour montrer un message de succès
  */
@@ -16,7 +18,7 @@ export const PostCreationForm = ({id_utilisateur_received, id_thread_received, s
     const router = useRouter();
 
     /**
-     * Les données pour la création d'un compte utilisateur
+     * Les données pour la création du post
      */
     const [newPostData, setNewPostData] = useState({
         titre: "",
@@ -45,7 +47,7 @@ export const PostCreationForm = ({id_utilisateur_received, id_thread_received, s
      */
     const createPost = async (event) => {
 
-        // On fait en sorte que l'événement par défaut ne se déclanche pas
+        // On fait en sorte que l'événement par défaut ne se déclenche pas
         event.preventDefault();
 
         // Nous vérifions d'abord que tous les champs ont été remplis, sinon nous affichons un message

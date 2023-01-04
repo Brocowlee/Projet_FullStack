@@ -3,14 +3,12 @@ import {Columns, Heading} from "react-bulma-components";
 import {LoginForm} from "../../components/users/loginForm";
 
 /**
- * La page pour connecter un utilisateur "/login"
+ * La page pour connecter un utilisateur c'est à dire le "/login"
  * @param showErrorMessage Fonction pour montrer un message d'erreur
- * @param showSuccessMessage Fonction pour montrer un message de succès
  * @param showInfoMessage Fonction pour montrer un message d'information
  */
-const LoginPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
+const LoginPage = ({showErrorMessage, showInfoMessage}) => {
 
-    // Sinon on renvoie la page pour se connecter
     return (
         <PageWrapper>
             <Columns.Column className="is-4 is-offset-4 polyforum-bigger">

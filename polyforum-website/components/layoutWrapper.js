@@ -15,9 +15,6 @@ export const LayoutWrapper = ({children}) => {
      */
     const router = useRouter();
 
-    
-
-
     /**
      * L'objet du message
      */

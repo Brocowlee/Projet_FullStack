@@ -3,14 +3,37 @@ import {useRouter} from 'next/router';
 import {useState, useEffect} from "react";
 import axios from "axios";
 
+/** Le composant pour afficher les threads
+* @param id_thread id du thread
+* @param titre titre du thread
+* @param description description du thread
+* @param age age requit du thread
+* @param date date de creation du thread
+* @param showErrorMessage Fonction pour montrer un message d'erreur
+* @param showSuccessMessage Fonction pour montrer un message de succès
+*/
 export const ShowThreads = ({id_thread, titre, description, age, date, showErrorMessage, showSuccessMessage}) => {
 
+    /** 
+    *  On récupère le routeur
+    */
     const router = useRouter();
 
     let showDeleteThread = false;
+
+    /** 
+    *  L'admin du thread
+    */
     const [admin, setadmin] = useState([]);
 
+    /** 
+    *  L'id de l'utilisateur
+    */
     const [userResponse, setUserResponse] = useState([]);
+
+    /** 
+    *  L'utilisateur
+    */
     const [user, setUser] = useState([]);
 
     /**
@@ -32,9 +55,9 @@ export const ShowThreads = ({id_thread, titre, description, age, date, showError
 
                 }
 
-                    // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
+                    // Si on attrape une erreur alors on montre un message d'erreur
                 catch (e) {
-                    showErrorMessage("Il y a eu une erreur lors de la récupération de l'utilisateur", e.response.data);
+                    showErrorMessage("Il y a eu une erreur lors de la récupération des données", e.response.data);
                 }
 
                 setLoaded(true);
@@ -66,11 +89,12 @@ export const ShowThreads = ({id_thread, titre, description, age, date, showError
         }
     }
     
+
     if(admin == 1){
         showDeleteThread = true;
     }
 
-
+    // Fonction pour supprimer un thread
     const deleteThread = async () => {
 
         const link_delete = `/api/thread/${id_thread}`;
@@ -84,7 +108,7 @@ export const ShowThreads = ({id_thread, titre, description, age, date, showError
             showSuccessMessage("Vous avec supprimé le thread avec succès");
         }
         
-            // Si on attrape une erreur alors on montre un message d'erreur
+        // Si on attrape une erreur alors on montre un message d'erreur
         catch (e) {
             console.log(e.message());
            showErrorMessage("Il y a eu une erreur lors de la supression du thread", e.response);

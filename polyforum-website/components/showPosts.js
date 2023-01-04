@@ -2,13 +2,37 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import {Button} from "react-bulma-components";
 
+/** Le composant pour afficher les posts d'un thread
+* @param id_thread id du thread
+* @param id_post id du post
+* @param titre titre du post
+* @param contenu contenu du post
+* @param createur createur du post
+* @param date date du post
+* @param showErrorMessage Fonction pour montrer un message d'erreur
+* @param showSuccessMessage Fonction pour montrer un message de succès
+*/
 export const ShowPosts = ({id_thread, id_post, titre, contenu, createur, date, showErrorMessage, showSuccessMessage}) => {
 
+    /**
+     * l'id du créateur
+     */
     let id_createur = createur;
 
     let showDeletePost = false;
+
+    /**
+     * L'admin du post
+     */
     const [admin, setadmin] = useState([]);
-    const [userResponse, setUserResponse] = useState([]);
+
+    /**
+     * l'id de l'utilisateur
+     */st [userResponse, setUserResponse] = useState([]);
+
+    /**
+     * le nom de l'utilisateur
+     */
     const [user, setUser] = useState([]);
 
     useEffect(() => {
@@ -27,9 +51,9 @@ export const ShowPosts = ({id_thread, id_post, titre, contenu, createur, date, s
                 setadmin(response_user.data[0].admin);
             }
 
-                // Si on attrape une erreur alors on montre un message d'erreur et on met que l'utilisateur est non défini
+                // Si on attrape une erreur alors on montre un message d'erreur
             catch (e) {
-                showErrorMessage("Il y a eu une erreur lors de la récupération de l'utilisateur", e.response.data);
+                showErrorMessage("Il y a eu une erreur lors de la récupération des données", e.response.data);
             }
 
         })()
@@ -39,6 +63,8 @@ export const ShowPosts = ({id_thread, id_post, titre, contenu, createur, date, s
         showDeletePost = true;
     }
 
+    
+    // Fonction pour supprimer un post
     const deletePost = async () => {
 
         const link_delete = `/api/thread/${id_thread}/${id_post}`;
@@ -52,7 +78,7 @@ export const ShowPosts = ({id_thread, id_post, titre, contenu, createur, date, s
             showSuccessMessage("Vous avec supprimé le post avec succès");
         }
         
-            // Si on attrape une erreur alors on montre un message d'erreur
+        // Si on attrape une erreur alors on montre un message d'erreur
         catch (e) {
             console.log(e.message());
            showErrorMessage("Il y a eu une erreur lors de la supression du post", e.response);

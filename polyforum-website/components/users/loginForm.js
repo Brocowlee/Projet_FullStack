@@ -75,7 +75,7 @@ export const LoginForm = ({showErrorMessage, showInfoMessage}) => {
     }
 
     /**
-     * Fonction qui s'exécute si un utilisateur appuie sur la touche entrée (pour que ça soit plus rapide que de cliquer sur le bouton de connexion)
+     * Fonction qui s'exécute si un utilisateur appuie sur la touche entrée
      * @param event L'événement
      */
     const handleKeyDown = (event) => {

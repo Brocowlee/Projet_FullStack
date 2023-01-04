@@ -19,11 +19,17 @@ L'objectif est de réaliser un forum type "reddit" à partir de nos connaissance
 ---
 ## Utilisation
 
-Ouvrir un premier *cmd* dans le fichier **forum-api** et executer la commande suivante :  
-<code>npm run dev</code>
+Ouvrir un premier *cmd* dans le fichier **forum-api** et executer la commande suivante :
+
+```shell
+npm run dev
+```
 
 Ouvrir un second *cmd* dans le fichier **polyforum-website** et executer également la commande :  
-<code>npm run dev</code>
+
+```shell
+npm run dev
+```
 
 Il ne reste plus qu'à accèder au site par ce lien :
 <code>http://localhost:8080</code>

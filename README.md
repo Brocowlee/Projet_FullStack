@@ -1,5 +1,4 @@
-# Projet_FullStack
-#GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur
+# Projet_FullStack / GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur
 
   Trello: https://trello.com/b/pbVG8OI4/projet-full-stack
 

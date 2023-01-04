@@ -1,4 +1,5 @@
-# Projet_FullStack GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur
+# Projet_FullStack
+#GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur
 
   Trello: https://trello.com/b/pbVG8OI4/projet-full-stack
 
@@ -22,7 +23,7 @@ L'objectif est de réaliser un forum type "reddit" à partir de nos connaissance
 Ouvrir un premier *cmd* dans le fichier **forum-api** et executer la commande suivante :  
 <code>npm run dev</code>
 
-Ouvrir un second *cmd* dans le fichier **forum-website** et executer également la commande :  
+Ouvrir un second *cmd* dans le fichier **polyforum-website** et executer également la commande :  
 <code>npm run dev</code>
 
 Il ne reste plus qu'à accèder au site par ce lien :

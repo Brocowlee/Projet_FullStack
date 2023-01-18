@@ -19,6 +19,8 @@ L'objectif est de réaliser un forum type "reddit" à partir de nos connaissance
 ---
 ## Utilisation
 
+Importer la BDD *fullstack_reddit.sql* dans un serveur local et configurer le fichier *forum-api/database.js* avec les informations corrects.
+
 Ouvrir un premier *cmd* dans le fichier **forum-api** et executer la commande suivante :
 
 ```shell

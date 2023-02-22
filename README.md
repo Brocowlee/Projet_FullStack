@@ -1,4 +1,4 @@
-# Projet_FullStack / GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur
+# Projet_FullStack | GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur
 
   Trello: https://trello.com/b/pbVG8OI4/projet-full-stack
 
@@ -8,13 +8,11 @@
 - [Utilisation](#utilisation)
 
 ---
-## Description
+## Contexte
 
-Ce projet a été réalisé dans le cadre de notre formation à Polytech Annecy-Chambéry 
+Ce projet a été réalisé par GUERIOT Benjamin, NICOLAS Thomas, GONAY Arthur dans le cadre de notre formation à Polytech Annecy-Chambéry lors du module INFO734.
 
-Ce projet est constitué d'une api ainsi qu'un site web.
-
-L'objectif est de réaliser un forum type "reddit" à partir de nos connaissance acquise au cours de l'UE INFO734
+L'objectif est de réaliser un forum type "reddit". Ce projet est donc constitué d'une api et d'un site web.
 
 ---
 ## Utilisation
